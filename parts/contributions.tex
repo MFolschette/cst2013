@@ -1,0 +1,65 @@
+\chapter{Contributions}
+
+\section{Retour sur les contributions passées}\label{sec:retour}
+
+Un travail préliminaire à cette thèse a consisté en la formalisation de deux nouvelles sémantiques du Process Hitting plus expressives.
+La première introduit la notion d'\emph{arc neutralisant} qui modélise une priorité locale entre deux actions ;
+il a été montré que cette sémantique est faiblement bisimilaire à la sémantique du Process Hitting avec priorités fixes.
+Une seconde consiste en la généralisation de la notion d'action à celle d'\emph{action conjointe}, possédant plusieurs frappeurs ;
+cette sémantique est identique à celle du Process Hitting à 2 priorités fixes et mise à jour prioritaire des sortes coopératives, comme détaillé dans la section~\ref{sec:cs2bio}.
+
+De plus, cette première année de thèse avait été l'occasion de compléter les liens formels entre modèle de Thomas et Process Hitting,
+en mettant notamment à jour une méthode de traduction d'un Process Hitting en un (ensemble de) modèle(s) de Thomas dont le comportement est strictement inclus.
+Ce travail a été réalisé lors d'un stage doctoral de trois mois au National Institute of Informatics à Tokyo, supervisé par le professeur Katsumi Inoue, et a abouti à une implémentation sous la forme de l'outil \texttt{ph2thomas} intégré à la bibliothèque existante Pint\footnote{Disponible à \url{http://process.hitting.free.fr}} et utilisant notamment une forme de programmation logique appelée \emph{Answer Set Programming} (ASP).
+Il fait l'objet d'une publication en workshop présentée en septembre \cite{FPIMR12-LDSSB}, d'une publication en conférence internationale \cite{FPIMR12-CMSB} présentée en octobre, et a donné lieu à une collaboration durable entre l'équipe MeForBio et l'Inoue Lab.
+\todo{Il fait aussi actuellement l'objet d'une extension en vue de sa soumission en revue.}
+
+\section{Implémentation Hoare}
+\todo{À faire ?}
+
+Une thèse de master \cite{Folschette2011} dont le sujet était la recherche de propriétés formelles sur le modèle de Thomas en utilisant la logique de Hoare et été réalisée au sein de la même équipe avant le début de ce doctorat.
+L'objectif était d'étudier des travaux en cours permettant de déduire les propriétés nécessaires d'un système pour observer certains comportements dynamiques, et d'implémenter une telle analyse.
+L'approche par logique de Hoare se base sur des triplets de Hoare qui représentent :
+\begin{itemize}
+  \item une pré-condition (état initial),
+  \item un programme impératif (représentant un ensemble de dynamiques possibles),
+  \item une post-condition (état final).
+\end{itemize}
+Cette approche en particulier utilise la logique de Hoare pour,
+à partir d'un ensemble de dynamiques possibles du système (représentées par un programme impératif)
+et d'un ensemble d'états finals du système (représentés par une post-condition)
+obtenir la plus large condition nécessaire sur les paramètres et l'état initial, par calcul de la plus faible pré-condition,
+permettant que l'ensemble des dynamiques données aboutisse dans l'ensemble des états finals donnés.
+\todo{Revoir}
+Cette méthode se distingue par la possibilité d'inférer, en plus d'un ensemble d'états initiaux, une classe de paramétrisations pour lesquelles les dynamiques données sont possibles.
+De plus, sa complexité est fortement réduite par rapport à un calcul du Graphe des États.
+Cependant, son aboutissement n'avait été que partiel face à certaines difficultés d'implémentation, bien que l'essai eut été effectué avec trois approches différentes :
+\begin{itemize}
+  \item une approche mathématique sous forme de preuves avec Coq,
+  \item une approche fonctionnelle en OCaml,
+  \item une approche logique en Prolog.
+\end{itemize}
+
+Fort d'un recul supplémentaire après un an de doctorat et de la connaissance d'ASP acquise au National Institute of Informatics, j'ai pu me replonger dans ce problème afin de proposer une approche et une implémentation efficaces.
+Cette nouvelle implémentation se base sur une représentation arborescente (et non fonctionnelle) des propriétés (pré-condition et post-condition) ce qui permet, contrairement aux implémentations précédentes, de les manipuler aisément.
+Cette nouvelle approche se compose de trois modules aux objectifs distincts :
+\begin{itemize}
+  \item Le noyau est écrit en OCaml et permet de calculer la plus faible pré-condition à partir du couple programme et post-condition donné ;
+  \item L'énumération des solutions possibles (état initial et paramétrisation) peut être réalisé à l'aide d'un programme ASP représentant la pré-condition obtenue ;
+  \item La fonction de simplification, ajoutée au noyaux en OCaml, permet enfin de simplifier la pré-condition obtenue lorsque certains termes sont trivialement vrais ou faux, ou l'affaiblir en fonction de contraintes sur les paramètres et la condition initiale ; cette simplification s'avère utile pour manipuler la propriété obtenue sans avoir à calculer explicitement la classe de solutions sous-jacente.
+\end{itemize}
+
+Cette nouvelle implémentation n'a pas encore fait l'objet d'une publication ou d'une communication, faute de la publication de l'article théorique initial.
+Cependant, elle est fonctionnelle et les résultats sont satisfaisants car elle permet de répondre aux divers exemples proposés ainsi qu'à des cas appliqués plus complexes.
+Elle permet actuellement de répondre \todo{en moins d'une seconde} là où les anciennes implémentations sont fortement limitées :
+\begin{itemize}
+  \item en temps lorsqu'il faut calculer le Graphe des États pour chaque paramétrisation possible,
+  \item en mémoire lorsqu'il faut énumérer explicitement tous les états initiaux et paramétrisations en même temps.
+\end{itemize}
+
+\section{CS2Bio}
+\label{sec:cs2bio}
+\todo{Priorités fixes de mises à jour de SC -> réponse à la perspective “Réflexion sur les propriétés d'atteignabilité” + RRB}
+
+\section{TCS}
+\todo{En cours}

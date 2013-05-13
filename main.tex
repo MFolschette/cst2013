@@ -1,0 +1,77 @@
+\documentclass[11pt]{report}
+
+\usepackage{hyperref}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath}  % Maths
+\usepackage{amsfonts} % Maths
+\usepackage{amssymb}  % Maths
+\usepackage{stmaryrd} % Maths (crochets doubles)
+
+\usepackage{url}     % Mise en forme + liens pour URLs
+\usepackage{array}   % Tableaux évolués
+
+\usepackage{comment}
+
+\usepackage[hmargin=3cm,vmargin=2.5cm]{geometry}
+
+\usepackage{tikz}
+\newdimen\pgfex
+\newdimen\pgfem
+\usetikzlibrary{arrows,shapes,shadows,scopes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{decorations.pathmorphing}
+
+\input{macros/macros}
+\input{macros/macros-ph}
+\input{macros/macros-grn}
+
+% Commandes À FAIRE
+\usepackage{color} % Couleurs du texte
+%\definecolor{darkgreen}{rgb}{0,0.5,0}
+%\newcommand{\afaire}[1]{\textcolor{red}{[À FAIRE~: #1]}}
+%\newcommand{\resume}[1]{\textcolor{blue}{#1}}
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[TODO : #1]}}}
+
+
+% Id est
+\newcommand{\ie}{\textit{i.e.}~}
+
+
+
+\title{Rapport pour le comité de suivi de thèse 2012/2013}
+
+\author{Maxime Folschette}
+
+%LUNAM Universit\'e, \'Ecole Centrale de Nantes, IRCCyN UMR CNRS 6597\\
+%(Institut de Recherche en Communications et Cybern\'etique de Nantes)\\
+%1 rue de la No\"e -- B.P. 92101 -- 44321 Nantes Cedex 3, France.\\
+%\email{Maxime.Folschette@irccyn.ec-nantes.fr}
+
+\begin{document}
+
+%\maketitle
+
+\input{titre}
+
+\setcounter{page}{0}
+\tableofcontents
+
+\input{parts/thematique}
+\input{parts/contributions}
+\input{parts/perspectives}
+\input{parts/activites}
+\input{parts/autres}
+
+\bibliographystyle{plain}%alpha}
+\bibliography{biblio}
+
+%\newpage
+%\todo{ANNEXES : ARCS NEUTRALISANTS + PH2THOMAS}
+
+\end{document}
