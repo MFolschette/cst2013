@@ -86,83 +86,153 @@ Une seconde extension consiste en l'attribution de classes de priorités aux act
 Cette sémantique reposant sur des priorités fixes permet de modéliser des comportements plus fins, par exemple au niveau des coopérations.
 Elle ne modifie pas les résultats concernant la recherche de points fixes, mais n'est pas compatible avec la méthode de sous-approximation de l'analyse statique.
 
+\begin{comment}
 \begin{figure}[ht]
 \centering
 \scalebox{1.1}{
 \begin{tikzpicture}
-\path[use as bounding box] (-2,-5.2) rectangle (7,0.7);
+  \path[use as bounding box] (-2,-5.2) rectangle (7,0.7);
 
-\TSort{(0,0)}{b}{2}{t}
-\TSort{(0,-3.8)}{c}{2}{b}
-\TSort{(4.5,-3)}{a}{3}{r}
+  \TSort{(0,0)}{b}{2}{t}
+  \TSort{(0,-3.8)}{c}{2}{b}
+  \TSort{(4.5,-3)}{a}{3}{r}
 
-\TSetTick{bc}{0}{00}
-\TSetTick{bc}{1}{01}
-\TSetTick{bc}{2}{10}
-\TSetTick{bc}{3}{11}
-% \TSetSortLbcel{bc}{$\neg a\wedge b$}
-\TSort{(-0.5,-2)}{bc}{4}{b}
+  \TSetTick{bc}{0}{00}
+  \TSetTick{bc}{1}{01}
+  \TSetTick{bc}{2}{10}
+  \TSetTick{bc}{3}{11}
+  % \TSetSortLbcel{bc}{$\neg a\wedge b$}
+  \TSort{(-0.5,-2)}{bc}{4}{b}
 
-\THit{b_1}{bend right}{bc_0}{.north}{bc_2}
-\THit{b_1}{bend right}{bc_1}{.north}{bc_3}
-\THit{b_0}{}{bc_2}{.north west}{bc_0}
-\THit{b_0}{}{bc_3}{.north west}{bc_1}
+  \THit{b_1}{bend right}{bc_0}{.north}{bc_2}
+  \THit{b_1}{bend right}{bc_1}{.north}{bc_3}
+  \THit{b_0}{}{bc_2}{.north west}{bc_0}
+  \THit{b_0}{}{bc_3}{.north west}{bc_1}
 
-\THit{c_0}{}{bc_1}{.south}{bc_0}
-\THit{c_0}{}{bc_3}{.south}{bc_2}
-\THit{c_1}{}{bc_0}{.south}{bc_1}
-\THit{c_1}{}{bc_2}{.south}{bc_3}
+  \THit{c_0}{}{bc_1}{.south}{bc_0}
+  \THit{c_0}{}{bc_3}{.south}{bc_2}
+  \THit{c_1}{}{bc_0}{.south}{bc_1}
+  \THit{c_1}{}{bc_2}{.south}{bc_3}
 
-\path[bounce, bend right=25]
-\TBounce{bc_2}{}{bc_0}{.north east}
-\TBounce{bc_3}{}{bc_1}{.north east}
-;
-\path[bounce, bend left=80, distance=30]
-\TBounce{bc_0}{}{bc_2}{.north}
-\TBounce{bc_1}{}{bc_3}{.north}
-;
-\path[bounce, bend right]
-\TBounce{bc_0}{}{bc_1}{.west}
-\TBounce{bc_2}{}{bc_3}{.west}
-;
-\path[bounce, bend left]
-\TBounce{bc_3}{}{bc_2}{.east}
-\TBounce{bc_1}{}{bc_0}{.east}
-;
+  \path[bounce, bend right=25]
+  \TBounce{bc_2}{}{bc_0}{.north east}
+  \TBounce{bc_3}{}{bc_1}{.north east}
+  ;
+  \path[bounce, bend left=80, distance=30]
+  \TBounce{bc_0}{}{bc_2}{.north}
+  \TBounce{bc_1}{}{bc_3}{.north}
+  ;
+  \path[bounce, bend right]
+  \TBounce{bc_0}{}{bc_1}{.west}
+  \TBounce{bc_2}{}{bc_3}{.west}
+  ;
+  \path[bounce, bend left]
+  \TBounce{bc_3}{}{bc_2}{.east}
+  \TBounce{bc_1}{}{bc_0}{.east}
+  ;
 
-\THit{bc_3}{thick}{a_1}{.north west}{a_2}
-\THit{bc_0}{thick,bend right=130, in=305, distance=140}{a_1}{.south east}{a_0}
-\path[bounce, bend left=40]
-\TBounce{a_1}{thick}{a_2}{.south west}
-\TBounce{a_1}{thick}{a_0}{.north east}
-;
+  \THit{bc_3}{thick}{a_1}{.north west}{a_2}
+  \THit{bc_0}{thick,bend right=130, in=305, distance=140}{a_1}{.south east}{a_0}
+  \path[bounce, bend left=40]
+  \TBounce{a_1}{thick}{a_2}{.south west}
+  \TBounce{a_1}{thick}{a_0}{.north east}
+  ;
 
-\THit{b_0}{thick,bend left,out=50,in=150}{a_2}{.west}{a_1}
-\THit{b_1}{thick,bend left,out=80,in=70,distance=100}{a_0}{.east}{a_1}
-\path[bounce]
-\TBounce{a_2}{thick,bend right=40}{a_1}{.west}
-\TBounce{a_0}{thick,bend right=40}{a_1}{.east}
-;
+  \THit{b_0}{thick,bend left,out=50,in=150}{a_2}{.west}{a_1}
+  \THit{b_1}{thick,bend left,out=80,in=70,distance=100}{a_0}{.east}{a_1}
+  \path[bounce]
+  \TBounce{a_2}{thick,bend right=40}{a_1}{.west}
+  \TBounce{a_0}{thick,bend right=40}{a_1}{.east}
+  ;
 
-\THit{c_0}{thick,bend left,out=270,in=290, distance=115}{a_2}{.east}{a_1}
-\THit{c_1}{thick}{a_0}{.north west}{a_1}
-\path[bounce]
-\TBounce{a_2}{thick,bend left=40}{a_1}{.north east}
-\TBounce{a_0}{thick,bend left=40}{a_1}{.south west}
-;
+  \THit{c_0}{thick,bend left,out=270,in=290, distance=115}{a_2}{.east}{a_1}
+  \THit{c_1}{thick}{a_0}{.north west}{a_1}
+  \path[bounce]
+  \TBounce{a_2}{thick,bend left=40}{a_1}{.north east}
+  \TBounce{a_0}{thick,bend left=40}{a_1}{.south west}
+  ;
 
-\THit{a_2}{bend left, out=290, in=120}{b_1}{.south}{b_0}
-\path[bounce, bend left]
-\TBounce{b_1}{}{b_0}{.south}
-;
-
+  \THit{a_2}{bend left, out=290, in=120}{b_1}{.south}{b_0}
+  \path[bounce, bend left]
+  \TBounce{b_1}{}{b_0}{.south}
+  ;
 \end{tikzpicture}
 }
-
 \caption{\label{fig:exPH}
-Exemple de Process Hitting comprenant quatre sortes : $a$, $b$, $c$ et $bc$.
-La sorte $bc$ est appelée sorte coopérative (cf. section \ref{sec:cs2bio}).
+  Exemple de Process Hitting comprenant quatre sortes : $a$, $b$, $c$ et $bc$.
+  La sorte $bc$ est appelée sorte coopérative (cf. section \ref{sec:cs2bio}).
 }
+\end{figure}
+\end{comment}
+
+
+
+\tikzstyle{prio}=[draw,thick,-stealth]
+
+\begin{figure}[ht]
+  \centering
+  \scalebox{1.4}{
+  \begin{tikzpicture}
+    \TSort{(0,0)}{a}{2}{l}
+    \TSort{(0,4)}{b}{2}{l}
+    \TSort{(6,2)}{c}{2}{r}
+
+    \TSetTick{ab}{0}{00}
+    \TSetTick{ab}{1}{01}
+    \TSetTick{ab}{2}{10}
+    \TSetTick{ab}{3}{11}
+    \TSort{(3,1)}{ab}{4}{r}
+
+    \THit{a_0}{prio}{ab_3}{.west}{ab_1}
+    \THit{a_0}{prio}{ab_2}{.west}{ab_0}
+    \THit{a_1}{prio}{ab_1}{.west}{ab_3}
+    \THit{a_1}{prio}{ab_0}{.west}{ab_2}
+
+    \THit{b_0}{prio}{ab_3}{.west}{ab_2}
+    \THit{b_0}{prio}{ab_1}{.west}{ab_0}
+    \THit{b_1}{prio}{ab_2}{.west}{ab_3}
+    \THit{b_1}{prio}{ab_0}{.west}{ab_1}
+    
+    \THit{a_1}{selfhit}{a_1}{.west}{a_0}
+    \THit{b_1}{selfhit}{b_1}{.west}{b_0}
+    \THit{a_0}{bend left}{b_0}{.south west}{b_1}
+    \THit{b_0}{bend right=60}{a_0}{.west}{a_1}
+
+    \THit{ab_3}{}{c_0}{.west}{c_1}
+
+    \path[bounce, bend right]
+      \TBounce{ab_3}{}{ab_1}{.north west}
+      \TBounce{ab_2}{}{ab_0}{.north west}
+      \TBounce{ab_3}{}{ab_2}{.north west}
+      \TBounce{ab_1}{}{ab_0}{.north west}
+    ;
+    \path[bounce, bend left]
+      \TBounce{ab_1}{}{ab_3}{.south west}
+      \TBounce{ab_0}{}{ab_2}{.south west}
+      \TBounce{ab_2}{}{ab_3}{.south west}
+      \TBounce{ab_0}{}{ab_1}{.south west}
+    ;
+    \path[bounce, bend right]
+      \TBounce{a_1}{}{a_0}{.north west}
+      \TBounce{b_1}{}{b_0}{.north west}
+    ;
+    \path[bounce, bend left]
+      \TBounce{a_0}{}{a_1}{.south west}
+      \TBounce{b_0}{}{b_1}{.south west}
+    ;
+    \path[bounce, bend left]
+      \TBounce{c_0}{}{c_1}{.south west}
+    ;
+    \TState{a_1, b_0, ab_2, c_0}
+  \end{tikzpicture}
+  }
+  \caption{\label{fig:exPH}
+    Exemple de Process Hitting comprenant quatre sortes : $a$, $b$, $ab$ et $c$, représentées par des rectangles arrondis, contenant des cercles représentant les processus.
+    Les actions sont représentées par des flèches en trait plein (frappe) puis pointillé (bond).
+    La sorte $ab$ est appelée sorte coopérative (cf.~section~\ref{sec:cs2bio}).
+    Les actions qui frappent cette sorte, représentées en trait épais, peuvent être priorisées comme expliqué à la section~\ref{sec:cs2bio}.
+    Les processus grisés représentent un état initial possible du modèle : $\PHetat{a_1, b_0, ab_{10}, c_0}$.
+  }
 \end{figure}
 
 
@@ -189,7 +259,7 @@ Une possibilité serait un travail sur l'introduction progressive du temps dans 
 Un autre enjeu de la présente thèse consistera en la compréhension des liens entre les différents formalismes utilisés.
 Cette compréhension est nécessaire afin de dégager efficacement les atouts de chaque type de modèle,
 mais aussi dans le but d'assurer une bonne communication au sein de la communauté scientifique, qui ne partage pas toujours les mêmes représentations.
-Une contribution a déjà été apportée sur ce plan dans \cite{FPIMR12-CMSB} (cf. section \ref{sec:traduction}).
+Une contribution a déjà été apportée sur ce plan dans \cite{FPIMR12-CMSB} (cf. section \todo{xx}).
 
 Tous ces aspects ont pour but commun le développement de formalismes ayant des propriétés intéressantes ainsi que des outils adéquats.
 Ces formalismes doivent en effet pouvoir modéliser efficacement les systèmes étudiés,
