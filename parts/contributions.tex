@@ -1,6 +1,7 @@
 \chapter{Contributions}
 
 \section{Inférence de paramètres par la logique de Hoare \normalsize(en cours)}
+\label{sec:hoare}
 \todo{À laisser ?}
 
 Une thèse de master \cite{Folschette2011} dont le sujet était “Application de la logique de Hoare aux Réseaux de Régulation Génétiques avec multiplexes” a été réalisée au sein de la même équipe avant le début de ce doctorat.
@@ -12,10 +13,10 @@ La logique de Hoare, introduite dans \cite{hoare-69}, se base sur un triplet (di
   \item une post-condition (état final).
 \end{itemize}
 Un tel triplet signifie que, partant d'un état initial respectant la pré-condition, l'exécution du programme amènera toujours le système dans un état final respectant la post-condition.
-D'après les travaux de Dijkstra \cite{dijkstra-75}, il est possible en ne connaissant que le programme et la post-condition,
+D'après les travaux de Dijkstra~\cite{dijkstra-75}, il est possible, en ne connaissant que le programme et la post-condition,
 d'inférer la plus faible pré-condition possible permettant d'obtenir un tel triplet.
 
-Les travaux sur lesquels se basent la thèse de master utilisent la logique de Hoare pour,
+Ainsi, les travaux sur lesquels se basent la thèse de master utilisent la logique de Hoare pour,
 à partir d'un ensemble de dynamiques possibles d'un système biologique (représentées par un programme impératif)
 et d'un ensemble d'états finals du système (représentés par une post-condition),
 obtenir la plus large condition nécessaire le système, par calcul de la plus faible pré-condition.
@@ -39,11 +40,12 @@ Cette nouvelle approche se compose de trois modules aux objectifs distincts :
 
 Cette nouvelle implémentation n'a pas encore fait l'objet d'une publication ou d'une communication, faute de la publication de l'article théorique initial.
 Cependant, elle est fonctionnelle et les résultats sont satisfaisants car elle permet de répondre aux divers exemples proposés ainsi qu'à des cas appliqués plus complexes.
-Elle permet actuellement de répondre \todo{en moins d'une seconde} là où les anciennes implémentations sont fortement limitées :
+Elle permet actuellement de répondre en moins d'une seconde \todo{chiffres précis} là où les anciennes implémentations sont fortement limitées :
 \begin{itemize}
   \item en temps lorsqu'il faut calculer le Graphe des États pour chaque paramétrisation possible,
   \item en mémoire lorsqu'il faut énumérer explicitement tous les états initiaux et paramétrisations en même temps.
 \end{itemize}
+En ce sens, ce travail s'intègre parfaitement à la problématique d'exploitation des grands Réseaux de Régulation Biologiques.
 
 
 
@@ -106,6 +108,7 @@ cette sémantique est faiblement bisimilaire à la sémantique présentée dans 
 
 
 \section{Extraction de Réseaux de Régulation Biologiques complets depuis un modèle de Process Hitting \normalsize(en cours)}
+\label{sec:tcs}
 
 Cette première année de thèse avait été l'occasion de compléter les liens formels entre modèle de Thomas et Process Hitting,
 en publiant notamment une méthode de traduction d'un modèle en Process Hitting vers un (ensemble de) modèle(s) de Thomas dont le comportement est strictement inclus.

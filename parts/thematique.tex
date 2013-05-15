@@ -7,7 +7,7 @@ L'étude et la compréhension des mécanismes du vivant, notamment au sein de la
 Plusieurs critères participent à la qualité d'un modèle biologique, et influent sur sa facilité d'élaboration, de lecture et d'exploitation.
 Le formalisme utilisé doit en effet permettre de représenter de façon pratique et complète un processus biologique donné, et donc
 de proposer une sémantique claire, sans lacune et compréhensible par une large communauté.
-De plus, son exploitation doit dans l'idéal être efficace, c'est-à-dire permettre l'obtention de résultats en évitant les problèmes de complexité en mémoire et en temps.
+De plus, son exploitation doit dans l'idéal être efficace, c'est-à-dire permettre l'obtention de résultats en évitant les problèmes de complexité, afin d'offrir un temps de calcul et une taille en mémoire raisonnables.
 
 Dans ce cadre, les Réseaux de Régulation Biologiques permettent de représenter des systèmes biologiques souvent déterminés par les physiciens en termes d'équations différentielles.
 Ces équations étant souvent difficiles à résoudre, elles sont simplifiées sous la forme de systèmes algébriques dont les influences entre composants se résument à des activations et des inhibitions.
@@ -17,9 +17,9 @@ Le modèle de Thomas, introduit en 1973 dans \cite{Thomas73}, propose une simpli
 Plutôt que de considérer les valeurs réelles de concentration des protéines synthétisées, ce modèle repose sur l'utilisation de seuils qui représentent des valeurs particulières de ces concentrations au-delà desquelles les influences entre composants évoluent.
 En plus de proposer une approche qualitative cohérente, cette représentation permet de s'affranchir de la connaissance des valeurs réelles des concentrations, qui sont souvent difficiles à obtenir expérimentalement.
 
-Il est possible de représenter simplement un système dans ce formalisme sous la forme d'un Graphe des Interactions dont les nœuds représentent les composants et les arcs étiquetés et orientés représentent les interactions entre ces composants.
+Il est possible de représenter simplement un système dans ce formalisme sous la forme d'un Graphe des Interactions dont les nœuds représentent les composants et les arcs orientés et étiquetés représentent les interactions entre ces composants.
 Ce modèle introduit également la notion de paramètre discret, qui permet de spécifier la dynamique du système, notamment dans les cas de coopérations entre composants.
-De tels paramètres jouent le rôle de points focaux dans le sens où il déterminent la direction d'évolution du système dans chacune de ses configurations.
+Un tel paramètre joue le rôle de \og point focal \fg{} dans le sens où il détermine la direction d'évolution d'un composant du système pour une configuration donnée.
 La figure \ref{fig:exRRB} donne un exemple de Réseau de Régulation Biologique simple.
 
 \begin{figure}[ht]
@@ -63,10 +63,10 @@ Aujourd'hui plus largement utilisé sous sa forme multivaluée \cite{richard-com
 comme l'ajout de multiplexes \cite{bernot-comet-khalis-08},
 l'intégration du temps continu \cite{Ahmad08},
 ou encore l'étude de sémantiques plus expressives \cite{BernotSemBRN}.
-Il a aussi été l'objet de travaux concernant la prédiction de son comportement d'après le Graphe des Interactions \cite{RiCo07},
+Il a aussi été l'objet de travaux concernant la prédiction de son comportement d'après le Graphe des Interactions seul \cite{RiCo07}.
 
 Bien qu'il soit adapté à la représentation des Réseaux de Régulation Biologiques, et que son utilisation soit très répandue, le modèle de Thomas souffre de deux principaux inconvénients.
-Tout d'abord, son utilisation pour la recherche de propriétés intéressantes sur les systèmes modélisés nécessite souvent l'analyse du Graphe des États dont le calcul s'avère être de complexité exponentielle.
+Tout d'abord, son utilisation pour la recherche de propriétés intéressantes sur les systèmes modélisés nécessite souvent l'analyse du Graphe des États dont la construction s'avère être de complexité exponentielle.
 De plus, l'étude d'un système représenté par ce formalisme nécessite une parfaite connaissance des coopérations entre composants, et donc d'avoir choisi une paramétrisation complète au sein d'un ensemble de possibilités potentiellement très important.
 
 
@@ -78,13 +78,6 @@ Cette représentation particulière offre des possibilités d'analyse statique e
 De plus, son atomicité permet d'adopter différents niveaux d'abstraction dans la modélisation, afin notamment de représenter une sur-approximation du comportement d'un système dont la spécification des coopérations ne serait pas entièrement déterminée.
 Une méthode efficace de détermination des points fixes a aussi été développée.
 La figure \ref{fig:exPH} donne un exemple de Process Hitting.
-
-Plusieurs extensions ont aussi été proposées pour enrichir ce formalisme.
-Une première repose sur l'introduction de stochasticité afin de modéliser la durée d'évolution relative des composants à l'aide probabilités.
-Cette extension nécessite l'exécution du modèle afin d'en extraite des propriétés empiriques, ou l'utilisation d'un model checker.
-Une seconde extension consiste en l'attribution de classes de priorités aux actions, afin d'imposer formellement un ordre de tir entre celles-ci.
-Cette sémantique reposant sur des priorités fixes permet de modéliser des comportements plus fins, par exemple au niveau des coopérations.
-Elle ne modifie pas les résultats concernant la recherche de points fixes, mais n'est pas compatible avec la méthode de sous-approximation de l'analyse statique.
 
 \begin{comment}
 \begin{figure}[ht]
@@ -235,6 +228,14 @@ Elle ne modifie pas les résultats concernant la recherche de points fixes, mais
   }
 \end{figure}
 
+Plusieurs extensions ont aussi été proposées pour enrichir ce formalisme.
+Une première repose sur l'introduction de stochasticité afin de modéliser la durée d'évolution relative des composants à l'aide probabilités.
+Cette extension nécessite l'exécution du modèle afin d'en extraite des propriétés empiriques, ou l'utilisation d'un model checker.
+Une seconde extension consiste en l'attribution de classes de priorités aux actions, afin d'imposer formellement un ordre de tir entre celles-ci.
+Cette extension avait été évoquée par le passé, et a fait l'objet d'un travail approfondi qui a débouché sur une publication (cf.~section~\ref{sec:cs2bio}).
+%Cette sémantique reposant sur des priorités fixes permet de modéliser des comportements plus fins, par exemple au niveau des coopérations.
+%Elle ne modifie pas les résultats concernant la recherche de points fixes, mais n'est pas compatible avec la méthode de sous-approximation de l'analyse statique.
+
 
 
 \section{Enjeux}
@@ -245,22 +246,15 @@ Le développement et l'enrichissement de nouveaux formalismes possède comme but
 L'un des objectifs de l'équipe MeForBio est l'étude formelle des propriétés de systèmes de grande taille,
 en s'appuyant notamment sur des représentation complémentaires et adaptées de ceux-ci.
 
-La thèse de master \cite{Folschette2011} réalisée dans la même équipe avait consisté en une introduction à la recherche de telles propriétés formelles sur le modèle de Thomas en utilisant la logique de Hoare.
-Cependant, son aboutissement n'avait été que partiel face à certaines difficultés d'implémentation,
-et d'autres pistes concernant cette fois le Process Hitting, qui permet notamment l'analyse de grands systèmes, peuvent être envisagées au cours de la présente thèse de doctorat.
-De plus, l'étude de propriétés formelles pourra s'accompagner d'un enrichissement de la sémantique du formalisme afin d'aborder des aspects qui ne sont actuellement pas pris en compte.
-Une possibilité serait un travail sur l'introduction progressive du temps dans le modèle pour une analyse chronométrique des systèmes biologiques.
-%comme des calculs de délais à l'aide de temps chronométrique.
+Le Process Hitting répond à cette problématique en offrant une modélisation exploitable pour la représentation de modèles biologiques (par un système de sortes et d'actions représentant les composants et leurs interactions),
+et en proposant des outils d'analyse très efficaces statique pour la recherche de points fixes ou pour des questions d'atteignabilité.
+Ces méthodes donnent effectivement des résultats en quelques centièmes de secondes sur des modèles de grande et très grande taille (de l'ordre de 20 à 100 composants), là où les model-checkers habituels ne permettent pas toujours de répondre faute de temps ou de mémoire, ou répondent en un temps supérieur de plusieurs ordres de grandeur \cite{PMR12-MSCS}.
 
-%L'une d'elles pourra consister en l'extension des outils déjà développés à d'autres sémantiques du Process Hitting afin 
-%La thématique de l'ajout de propriétés temporelles à ce modèle pourra notamment être reprise, dans le but de quantifier un phénomène non plus par une simple chronologie d'événements mais aussi par des données quantitatives concernant des délais d'évolution.
-%De telles données chronométriques permettraient de généraliser les propriétés et outils développés sur la sémantique du Process Hitting standard.
+Le présent doctorat s'inscrit dans cette logique d'étude et d'analyse des Réseaux de Régulation Biologiques de grande taille.
+Les développement du Process Hitting par l'élaboration de nouveaux outils ou l'enrichissement de sa sémantique semble ainsi une voie toute tracée pour l'enrichissement de la palette d'outils répondant à ces problématiques.
+Nous verrons ainsi qu'il est possible, à l'aide d'une extension cohérente de la sémantique du Process Hitting, d'étendre l'analyse statique développée dans de précédents travaux à l'ensemble des modèles de type Réseaux Discrets (cf.~section~\ref{sec:cs2bio}).
+De plus, l'élaboration d'outils permettant l'extraction d'un modèle de Thomas à partir d'un modèle de Process Hitting montre le lien entre ces deux formalismes (cf.~section~\ref{sec:tcs}).
 
-Un autre enjeu de la présente thèse consistera en la compréhension des liens entre les différents formalismes utilisés.
-Cette compréhension est nécessaire afin de dégager efficacement les atouts de chaque type de modèle,
-mais aussi dans le but d'assurer une bonne communication au sein de la communauté scientifique, qui ne partage pas toujours les mêmes représentations.
-Une contribution a déjà été apportée sur ce plan dans \cite{FPIMR12-CMSB} (cf. section \todo{xx}).
-
-Tous ces aspects ont pour but commun le développement de formalismes ayant des propriétés intéressantes ainsi que des outils adéquats.
-Ces formalismes doivent en effet pouvoir modéliser efficacement les systèmes étudiés,
-en faisant face de façon efficace aux problèmes de complexité qui se posent lors de l'étude de grands modèles.
+Cependant, la forme actuelle du Process Hitting ne doit pas rester la seule piste de développement possible.
+Une approche par logique de Hoare démontre la possibilité d'inférer des paramètres discret du modèle de Thomas à partir de propriétés dynamiques d'un système (cf.~section~\ref{sec:hoare}).
+De plus, à l'avenir, une approche par intégration de données chronométriques pourrait notamment être envisagée (cf.~chapitre~\ref{chap:perspectives}).

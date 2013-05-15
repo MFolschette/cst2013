@@ -1,91 +1,148 @@
 \chapter{Activités scientifiques}
 
+\newcommand{\rev}{avec \textit{peer review}}
+
+\newcommand{\ifnotempty}[2]{\ifthenelse{\equal{#1}{}}{}{#2}}
+\newcommand{\replace}[3]{\ifthenelse{\equal{#1}{#2}}{#3}{#1}}
+
+\newcommand{\entree}[3]{\begin{samepage}\vspace{.3em}\begin{itemize}\item[$\bullet$]\textbf{#1}\quad#2\end{itemize}\vspace{.3em}%
+#3\vspace{.7em}\end{samepage}}
+
+%\newcommand{\publi}[8]{\samepage{\vspace{.3em}\begin{itemize}\item[$\bullet$]\textbf{#1}\quad#2\end{itemize}\vspace{.3em}%
+%\ifnotempty{#3}{#3. }%
+%\ifnotempty{#4}{#4\ifnotempty{#5#6#7}{, }}%
+%\ifnotempty{#6}{\replace{#5}{in}{in : }\textit{#6}\ifnotempty{#7}{, }}%
+%#7\ifnotempty{#4#5#6#7}{.}\ifnotempty{#3#4#5#6#7}{\ifnotempty{#8}{\\}}%
+%#8\ifnotempty{#3#4#5#6#7#8}{\vspace{.7em}}}}
+
+\newcommand{\publi}[8]{\entree{#1}{#2}{%
+\ifnotempty{#3}{#3. }%
+\ifnotempty{#4}{#4\ifnotempty{#5#6#7}{, }}%
+\ifnotempty{#6}{\replace{#5}{in}{in : }\textit{#6}\ifnotempty{#7}{, }}%
+#7\ifnotempty{#4#5#6#7}{.}\ifnotempty{#3#4#5#6#7}{\ifnotempty{#8}{\\}}%
+#8}}
+
+\newcommand{\expose}[3]{\publi{#1}{}{#2}{}{}{}{#3}{}}
+
+
+
 \section{Publications}\label{sec:publications}
 
 \subsection{Publications 2012/2013}
-\todo{CS2Bio}
 
-\todo{JDOC ?}
+\publi
+{Article accepté en workshop \rev}{\cite{FPMR13-CS3Bio}}
+{\textbf{Maxime Folschette}, Loïc Paulevé, Morgan Magnin, Olivier Roux}
+{Under-approximation of reachability in multivalued asynchronous networks}
+{in}{CS2Bio’13: 4th International Workshop on Interactions between Computer Science and Biology}
+{Florence, Italie, juin 2013}
+{Préimpression : \url{http://www.irccyn.ec-nantes.fr/~folschet/Folschette_CS2Bio13.pdf}}
+
+
+
+\subsection{Séminaires 2012/2013}
+
+\publi
+{Résumé étendu \rev}{}
+{\textbf{Maxime Folschette}}
+{Inferring Biological Regulatory Networks from Process Hitting models}
+{}{MOVEP'12 : The 10th school for young researchers about Modelling and Verifying Parallel processes}
+{Marseille, France, décembre 2012}
+{Préimpression : \url{http://www.irccyn.ec-nantes.fr/~folschet/Folschette_MOVEP12.pdf}}
+
+\publi
+{Résumé étendu \rev}{}
+{\textbf{Maxime Folschette}}
+{Introduction to the Process Hitting and inference of its underlying Biological Regulatory Network}
+{}{ASSB'13 : Thematic Research School on the Advances in Systems and Synthetic Biology}
+{La Colle-sur-Loup, France, mars 2013}
+{Préimpression : \url{http://www.irccyn.ec-nantes.fr/~folschet/Folschette_ASSB13.pdf}}
+
+\publi
+{Résumé étendu et poster}{}
+{\textbf{Maxime Folschette}}
+{Presentation of the Process Hitting framework and inference of Biological Regulatory Networks with Thomas parameters}
+{}{JDOC : 13\textsuperscript{e} Journée des Doctorants de l'ED STIM}
+{Saint-Nazaire, France, avril 2013}
+{Actes et posters : \url{https://sites.google.com/site/jdoc2013fr/}}
+
+
 
 \subsection{Publications précédentes}\label{ssec:publications}
-\todo{Alléger}
 
-\paragraph{Article accepté en conférence}
-\begin{itemize}
-\item[] \textbf{Maxime Folschette}, Loïc Paulevé, Katsumi Inoue, Morgan Magnin, Olivier Roux.
-Concretizing the Process Hitting into Biological Regulatory Networks,
-in : CMSB'12\!\!: Proceedings of the 10th International Conference on Computational Methods in Systems Biology,
-London, UK, ACM, octobre 2012.
-\end{itemize}
-Une version préliminaire de cette publication est disponible en annexe de ce document.
+\publi
+{Article accepté en conférence \rev}{\cite{FPIMR12-CMSB}}
+{\textbf{Maxime Folschette}, Loïc Paulevé, Katsumi Inoue, Morgan Magnin, Olivier Roux}
+{Concretizing the Process Hitting into Biological Regulatory Networks}
+{in}{CMSB'12: Proceedings of the 10th International Conference on Computational Methods in Systems Biology}
+{Londres, Royaume-Uni, ACM, octobre 2012}
+{\url{http://link.springer.com/chapter/10.1007\%2F978-3-642-33636-2_11}}
 
-\paragraph{Article soumis en workshop}
-\begin{itemize}
-\item[] \textbf{Maxime Folschette}, Loïc Paulevé, Katsumi Inoue, Morgan Magnin, Olivier Roux.
-Abducting Biological Regulatory Networks from Process Hitting models,
-in : LDSSB'12\!\!: ECML/PKDD 2012 Workshop on Learning and Discovery in Symbolic Systems Biology,
-University of Bristol, UK, septembre 2012
-\end{itemize}
+\publi
+{Article accepté en workshop \rev}{\cite{FPIMR12-LDSSB}}
+{\textbf{Maxime Folschette}, Loïc Paulevé, Katsumi Inoue, Morgan Magnin, Olivier Roux}
+{Abducting Biological Regulatory Networks from Process Hitting models}
+{in}{LDSSB'12: ECML/PKDD 2012 Workshop on Learning and Discovery in Symbolic Systems Biology}
+{University of Bristol, Royaume-Uni, septembre 2012}
+{Actes : \url{http://www.cs.bris.ac.uk/~oray/LDSSB12/LDSSB-2012.pdf}}
 
-\paragraph{Précédente publication en journal} dans le domaine de la fusion nucléaire
-\begin{itemize}
-\item[] Andrea Murari, Didier Mazon, Michela Gelfusa, \textbf{Maxime Folschette}, Thibaut Quilichini et collaborateurs EFDA-JET.
-Residual analysis of the equilibrium reconstruction quality on JET, \textit{Nuclear Fusion},
-volume 51, numéro 5, avril 2011, DOI 10.1088/0029-5515/51/5/053012.
-\end{itemize}
+\publi
+{Précédente publication en journal \rev}{dans le domaine de la fusion nucléaire}
+{Andrea Murari, Didier Mazon, Michela Gelfusa, \textbf{Maxime Folschette}, Thibaut Quilichini et collaborateurs EFDA-JET}
+{Residual analysis of the equilibrium reconstruction quality on JET}
+{}{Nuclear Fusion}
+{volume 51, numéro 5, avril 2011}%, DOI 10.1088/0029-5515/51/5/053012}
+{\url{http://iopscience.iop.org/0029-5515/51/5/053012/}}
 
 
 
 \section{Exposés invités}
 
-\subsection{Exposés avec proceedings}
+\subsection{Exposés avec article 2012/2013}
 
-\todo{MOVES}
+\expose
+{MOVEP'12 : The 10th school for young researchers about Modelling and Verifying Parallel processes}
+{Inferring Biological Regulatory Networks from Process Hitting models}
+{Marseille, France, décembre 2012}
 
-\todo{ASSB}
+\expose
+{ASSB'13 : Thematic Research School on the Advances in Systems and Synthetic Biology}
+{Introduction to the Process Hitting and inference of its underlying Biological Regulatory Network}
+{La Colle-sur-Loup, France, mars 2013}
 
-\todo{Klamt ?}
+\todo{Ajouter l'exposé à Stefen Klamt ?}
+
+\todo{Ajouter les présentations à CMSB et LDSSB ?}
+
 
 
 \subsection{Exposés précédents}
-\todo{Alléger}
 
-\paragraph{Réunion du groupe de travail ANR BioTempo/G2 : « Des dynamiques discrètes à des dynamiques continues (modèles hybrides) »}
-juin 2012, Nantes, France
-\begin{itemize}
-\item[] Concretizing Process Hitting models into Biological Regulatory Networks with Thomas' formalism using ASP
-\end{itemize}
+\expose{Réunion du groupe de travail ANR BioTempo/G2 : « Des dynamiques discrètes à des dynamiques continues (modèles hybrides) »}
+{Concretizing Process Hitting models into Biological Regulatory Networks with Thomas' formalism using ASP}
+{Juin 2012, Nantes, France}
 
-\paragraph{Séminaire informel AED}
-juin 2012, Nantes, France
-\begin{itemize}
-\item[] Modeling and Analysis of Large Biological Regulatory Networks thanks to the “Process Hitting” Framework
-\end{itemize}
+\expose{Séminaire informel AED}
+{Modeling and Analysis of Large Biological Regulatory Networks thanks to the “Process Hitting” Framework}
+{Juin 2012, Nantes, France}
 
-\paragraph{Fourth CSPSAT \& ASP Seminar}
-mai 2012, Kobe, Japon
-\begin{itemize}
-\item[] Concretizing Process Hitting models into Biological Regulatory Networks with Thomas' formalism using ASP
-\end{itemize}
+\expose{Fourth CSPSAT \& ASP Seminar}
+{Concretizing Process Hitting models into Biological Regulatory Networks with Thomas' formalism using ASP}
+{Mai 2012, Kobe, Japon}
 
-\paragraph{KUBIC-NII Joint Seminar on Bioinformatics 2012}
-avril 2012, Kyoto, Japon
-\begin{itemize}
-\item[] Translating Process Hitting models to Thomas' modeling with ASP
-\end{itemize}
+\expose{KUBIC-NII Joint Seminar on Bioinformatics 2012}
+{Translating Process Hitting models to Thomas' modeling with ASP}
+{Avril 2012, Kyoto, Japon}
 
-\paragraph{The 8th Meeting on Inference-based Hypothesis-finding and its Application to Systems Biology}
-mars 2012, Kanazawa, Japon
-\begin{itemize}
-\item[] Modeling and Analysis of Large Biological Regulatory Networks thanks to the Process Hitting Framework
-\end{itemize}
+\expose{The 8th Meeting on Inference-based Hypothesis-finding and its Application to Systems Biology}
+{Modeling and Analysis of Large Biological Regulatory Networks thanks to the Process Hitting Framework}
+{Mars 2012, Kanazawa, Japon}
 
 
 
 \section{Collaboration}
 
-\paragraph{Katsumi Inoue} National Institute of Informatics, Tokyo, Japon
-
-Séjour AtlanSTIC de trois mois (mars à mai 2012) financé par la fondation Centrale Initiatives et le National Institute of Informatics,
-portant sur l'inférence du modèle de Thomas sous-jacent à un Process Hitting.
-Développement de l'outil \texttt{ph2thomas} permettant cette inférence à l'aide d'Answer Set Programming.
+\entree
+{Katsumi Inoue}{Inoue Lab., National Institute of Informatics, Tokyo, Japon}
+{Collaboration nouée lors du stage doctoral à l'Inoue Lab. en première année (mars à mai 2012).
+Participation à la révision de~\cite{FPIMR12-CMSB} pour sa soumission à Theoretical Computer Science (cf.~section~\ref{sec:tcs}).}
