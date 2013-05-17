@@ -1,16 +1,21 @@
 
 \chapter{Problématique}
 
-\todo{Réécrire ?}
+Chercher à modéliser les phénomènes biologiques est une étape importante dans la compréhension des mécaniques du vivant.
+Au sein de la machine cellulaire, notamment, les cascades de régulations entre gènes forment des systèmes complexes que l'on cherche à comprendre et à maîtriser.
+Les applications en sont nombreuses, et peuvent aller jusqu'à l'élaboration de thérapies géniques.
+%L'étude et la compréhension des mécanismes du vivant, notamment au sein de la machine cellulaire, posent de nombreux problèmes de représentation des phénomènes biologiques.
 
-L'étude et la compréhension des mécanismes du vivant, notamment au sein de la machine cellulaire, posent de nombreux problèmes de représentation.
+Afin de permettre leur représentation et leur étude \textit{in silico}, de tels systèmes peuvent être représentés sous la forme de modèles.
+%L'étude de tels systèmes de régulations nécessite l'élaboration de modèles.
 Plusieurs critères participent à la qualité d'un modèle biologique, et influent sur sa facilité d'élaboration, de lecture et d'exploitation.
 Le formalisme utilisé doit en effet permettre de représenter de façon pratique et complète un processus biologique donné, et donc
 de proposer une sémantique claire, sans lacune et compréhensible par une large communauté.
 De plus, son exploitation doit dans l'idéal être efficace, c'est-à-dire permettre l'obtention de résultats en évitant les problèmes de complexité, afin d'offrir un temps de calcul et une taille en mémoire raisonnables.
 
-Dans ce cadre, les Réseaux de Régulation Biologiques permettent de représenter des systèmes biologiques souvent déterminés par les physiciens en termes d'équations différentielles.
+Dans ce cadre, les Réseaux de Régulation Biologiques permettent de représenter des systèmes biologiques habituellement déterminés par les physiciens en termes d'équations différentielles.
 Ces équations étant souvent difficiles à résoudre, elles sont simplifiées sous la forme de systèmes algébriques dont les influences entre composants se résument à des activations et des inhibitions.
+Au cours de ma thèse, je m'attache à l'étude de deux modèles algébriques en particulier : le modèle de Thomas et le Process Hitting.
 
 \section{Modèle de Thomas}
 Le modèle de Thomas, introduit en 1973 dans \cite{Thomas73}, propose une simplification cohérente des modèles continus sous forme d'équations différentielles.
@@ -20,7 +25,7 @@ En plus de proposer une approche qualitative cohérente, cette représentation p
 Il est possible de représenter simplement un système dans ce formalisme sous la forme d'un Graphe des Interactions dont les nœuds représentent les composants et les arcs orientés et étiquetés représentent les interactions entre ces composants.
 Ce modèle introduit également la notion de paramètre discret, qui permet de spécifier la dynamique du système, notamment dans les cas de coopérations entre composants.
 Un tel paramètre joue le rôle de \og point focal \fg{} dans le sens où il détermine la direction d'évolution d'un composant du système pour une configuration donnée.
-La figure \ref{fig:exRRB} donne un exemple de Réseau de Régulation Biologique simple.
+La figure \ref{fig:exRRB} donne un exemple de modèle de Thomas simple.
 
 \begin{figure}[ht]
 \begin{minipage}{0.4\linewidth}
@@ -55,7 +60,8 @@ K_{a,\emptyset} &= 0 & K_{c,\emptyset} &= 1
 Exemple de Réseau de Régulation Biologique, comprenant un Graphe des Interactions (à gauche) et une paramétrisation (à droite).
 Chaque nœud du graphe représente un composant et chaque arc une régulation
 dont l'étiquette indique le type (“$+$” pour une activation et “$-$” pour une inhibition) et le seuil.
-Les paramètres tiennent lieu de points focaux pour l'état concerné.
+Les paramètres tiennent lieu de points focaux pour l'état concerné :
+“$K_{b,\{a\}} = 0$” signifie par exemple que $b$ évolue vers $0$ dans toutes les configurations où le niveau de $a$ est supérieur à la valeur du seuil figurant sur l'arc $a \rightarrow b$, soit $2$.
 }
 \end{figure}
 
@@ -71,94 +77,15 @@ De plus, l'étude d'un système représenté par ce formalisme nécessite une pa
 
 
 
+\hyphenation{MeForBio}
+
 \section{Process Hitting}\label{sec:PH}
-Une modélisation des Réseaux de Régulation Biologiques à l'aide de $\pi$-calcul, appelée Process Hitting (ou Frappes de Processus), a été récemment introduite par l'équipe MeForBio \cite{PMR10-TCSB,PaulevePhD} et constitue le sujet central de cette thèse.
+Une modélisation des Réseaux de Régulation Biologiques à l'aide de $\pi$-calcul, appelée Process Hitting (ou Frappes de Processus), a été récemment introduite par l'équipe MeForBio~\cite{PMR10-TCSB,PaulevePhD}.
 Elle propose un point de vue plus modulable des influences entre composants grâce à une représentation d'actions atomiques entre ceux-ci.
 Cette représentation particulière offre des possibilités d'analyse statique efficaces permettant de sur-approximer et sous-approximer l'atteignabilité d'un processus \cite{PMR12-MSCS}.
 De plus, son atomicité permet d'adopter différents niveaux d'abstraction dans la modélisation, afin notamment de représenter une sur-approximation du comportement d'un système dont la spécification des coopérations ne serait pas entièrement déterminée.
 Une méthode efficace de détermination des points fixes a aussi été développée.
-La figure \ref{fig:exPH} donne un exemple de Process Hitting.
-
-\begin{comment}
-\begin{figure}[ht]
-\centering
-\scalebox{1.1}{
-\begin{tikzpicture}
-  \path[use as bounding box] (-2,-5.2) rectangle (7,0.7);
-
-  \TSort{(0,0)}{b}{2}{t}
-  \TSort{(0,-3.8)}{c}{2}{b}
-  \TSort{(4.5,-3)}{a}{3}{r}
-
-  \TSetTick{bc}{0}{00}
-  \TSetTick{bc}{1}{01}
-  \TSetTick{bc}{2}{10}
-  \TSetTick{bc}{3}{11}
-  % \TSetSortLbcel{bc}{$\neg a\wedge b$}
-  \TSort{(-0.5,-2)}{bc}{4}{b}
-
-  \THit{b_1}{bend right}{bc_0}{.north}{bc_2}
-  \THit{b_1}{bend right}{bc_1}{.north}{bc_3}
-  \THit{b_0}{}{bc_2}{.north west}{bc_0}
-  \THit{b_0}{}{bc_3}{.north west}{bc_1}
-
-  \THit{c_0}{}{bc_1}{.south}{bc_0}
-  \THit{c_0}{}{bc_3}{.south}{bc_2}
-  \THit{c_1}{}{bc_0}{.south}{bc_1}
-  \THit{c_1}{}{bc_2}{.south}{bc_3}
-
-  \path[bounce, bend right=25]
-  \TBounce{bc_2}{}{bc_0}{.north east}
-  \TBounce{bc_3}{}{bc_1}{.north east}
-  ;
-  \path[bounce, bend left=80, distance=30]
-  \TBounce{bc_0}{}{bc_2}{.north}
-  \TBounce{bc_1}{}{bc_3}{.north}
-  ;
-  \path[bounce, bend right]
-  \TBounce{bc_0}{}{bc_1}{.west}
-  \TBounce{bc_2}{}{bc_3}{.west}
-  ;
-  \path[bounce, bend left]
-  \TBounce{bc_3}{}{bc_2}{.east}
-  \TBounce{bc_1}{}{bc_0}{.east}
-  ;
-
-  \THit{bc_3}{thick}{a_1}{.north west}{a_2}
-  \THit{bc_0}{thick,bend right=130, in=305, distance=140}{a_1}{.south east}{a_0}
-  \path[bounce, bend left=40]
-  \TBounce{a_1}{thick}{a_2}{.south west}
-  \TBounce{a_1}{thick}{a_0}{.north east}
-  ;
-
-  \THit{b_0}{thick,bend left,out=50,in=150}{a_2}{.west}{a_1}
-  \THit{b_1}{thick,bend left,out=80,in=70,distance=100}{a_0}{.east}{a_1}
-  \path[bounce]
-  \TBounce{a_2}{thick,bend right=40}{a_1}{.west}
-  \TBounce{a_0}{thick,bend right=40}{a_1}{.east}
-  ;
-
-  \THit{c_0}{thick,bend left,out=270,in=290, distance=115}{a_2}{.east}{a_1}
-  \THit{c_1}{thick}{a_0}{.north west}{a_1}
-  \path[bounce]
-  \TBounce{a_2}{thick,bend left=40}{a_1}{.north east}
-  \TBounce{a_0}{thick,bend left=40}{a_1}{.south west}
-  ;
-
-  \THit{a_2}{bend left, out=290, in=120}{b_1}{.south}{b_0}
-  \path[bounce, bend left]
-  \TBounce{b_1}{}{b_0}{.south}
-  ;
-\end{tikzpicture}
-}
-\caption{\label{fig:exPH}
-  Exemple de Process Hitting comprenant quatre sortes : $a$, $b$, $c$ et $bc$.
-  La sorte $bc$ est appelée sorte coopérative (cf. section \ref{sec:cs2bio}).
-}
-\end{figure}
-\end{comment}
-
-
+La figure \ref{fig:exPH} donne un exemple de modèle en Process Hitting.
 
 \tikzstyle{prio}=[draw,thick,-stealth]
 
@@ -240,8 +167,6 @@ Cette extension avait été évoquée par le passé, et a fait l'objet d'un trav
 
 \section{Enjeux}
 
-\todo{À revoir}
-
 Le développement et l'enrichissement de nouveaux formalismes possède comme but premier une meilleure représentation des systèmes et des phénomènes modélisés.
 L'un des objectifs de l'équipe MeForBio est l'étude formelle des propriétés de systèmes de grande taille,
 en s'appuyant notamment sur des représentation complémentaires et adaptées de ceux-ci.
@@ -250,11 +175,11 @@ Le Process Hitting répond à cette problématique en offrant une modélisation 
 et en proposant des outils d'analyse très efficaces statique pour la recherche de points fixes ou pour des questions d'atteignabilité.
 Ces méthodes donnent effectivement des résultats en quelques centièmes de secondes sur des modèles de grande et très grande taille (de l'ordre de 20 à 100 composants), là où les model-checkers habituels ne permettent pas toujours de répondre faute de temps ou de mémoire, ou répondent en un temps supérieur de plusieurs ordres de grandeur \cite{PMR12-MSCS}.
 
-Le présent doctorat s'inscrit dans cette logique d'étude et d'analyse des Réseaux de Régulation Biologiques de grande taille.
+Ma thèse de doctorat s'inscrit dans cette logique d'étude et d'analyse des Réseaux de Régulation Biologiques de grande taille.
 Les développement du Process Hitting par l'élaboration de nouveaux outils ou l'enrichissement de sa sémantique semble ainsi une voie toute tracée pour l'enrichissement de la palette d'outils répondant à ces problématiques.
 Nous verrons ainsi qu'il est possible, à l'aide d'une extension cohérente de la sémantique du Process Hitting, d'étendre l'analyse statique développée dans de précédents travaux à l'ensemble des modèles de type Réseaux Discrets (cf.~section~\ref{sec:cs2bio}).
 De plus, l'élaboration d'outils permettant l'extraction d'un modèle de Thomas à partir d'un modèle de Process Hitting montre le lien entre ces deux formalismes (cf.~section~\ref{sec:tcs}).
 
 Cependant, la forme actuelle du Process Hitting ne doit pas rester la seule piste de développement possible.
-Une approche par logique de Hoare démontre la possibilité d'inférer des paramètres discret du modèle de Thomas à partir de propriétés dynamiques d'un système (cf.~section~\ref{sec:hoare}).
+Une approche par logique de Hoare démontre la possibilité d'inférer des paramètres discrets du modèle de Thomas à partir de propriétés dynamiques d'un système (cf.~section~\ref{sec:hoare}).
 De plus, à l'avenir, une approche par intégration de données chronométriques pourrait notamment être envisagée (cf.~chapitre~\ref{chap:perspectives}).

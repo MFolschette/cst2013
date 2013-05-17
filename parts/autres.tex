@@ -1,15 +1,16 @@
 \chapter{Autres activités}
 
-\newcommand{\enseignement}[5]{\entree{#1}{#2}{%
+\newcommand{\enseignement}[5]{\entree{}%$\bullet$}
+{#1}{#2}{%
 \ifnotempty{#3}{#3\ifnotempty{#4}{\\}}%
 \ifnotempty{#4}{\textbf{Responsable :} #4}%
 \begin{itemize}\renewcommand{\labelitemi}{\qquad$\circ$}#5\end{itemize}}}
 
-\newcommand{\formation}{\entree}
+\newcommand{\formation}[3]{\entree{$\bullet$}{#1}{(#2)}{#3}}
 
-\section{Enseignement}
+\section{Enseignements dispensés durant l'année scolaire 2012/2013}
 
-Activité complémentaire d'enseignement (monitorat) à l'École Centrale de Nantes auprès d'élèves de 1\textsuperscript{ère}, 2\textsuperscript{e} et 3\textsuperscript{e} année (Bac +3 à Bac +5). Les heures de TP sont décomptées comme équivalentes aux heures de TD.
+J'ai effectué une activité complémentaire d'enseignement (monitorat) à l'École Centrale de Nantes auprès d'élèves de 1\textsuperscript{ère}, 2\textsuperscript{e} et 3\textsuperscript{e} année (Bac +3 à Bac +5). Les heures de TP sont décomptées comme équivalentes aux heures de TD.
 
 \bigskip
 
@@ -43,9 +44,31 @@ Activité complémentaire d'enseignement (monitorat) à l'École Centrale de Nan
 {Ina TARALOVA}
 {\item 1 projet d'1 étudiant en co-encadrement, soit environ 2 heures}
 
+Ma charge d'enseignement pour cette année scolaire s'élève donc à environ 69~heures, pour 64~heures requises par mon contrat.
+L'année dernière, j'avais effectué environ 68~heures d'enseignement.
 
 
-\section{Modules d'apprentissage}
+
+\section{Projets encadrés durant l'année scolaire 2012/2013}
+
+J'ai eu l'occasion d'encadrer trois projets d'étudiants durant cette année scolaire. Tous les étudiants concernés étaient en 3\textsuperscript{e} année à l'École Centrale de Nantes.
+
+Deux groupes d'étudiants (PGROU et PAPPL ci-avant) et se sont concentré sur le projet d'interface graphique en développement gPH permettant de manipuler visuellement des modèles en Process Hitting et d'y appliquer des outils de Pint.
+Ces deux projets ont permis d'aboutir à une version stable de l'interface permettant d'effectuer des tâches de base :
+\begin{itemize}
+  \item proposer une représentation graphique dynamique d'un modèle de Process Hitting,
+  \item associer divers attributs graphiques (couleur, position) aux sortes et les répartir en groupes,
+  \item éditer la version texte du modèle et permettre une mise à jour en direct de la version graphique,
+  \item définir et appeler des branchements vers des outils extérieurs (de la bibliothèque Pint notamment).
+\end{itemize}
+L'objectif de cette application est de permettre l'utilisation du Process Hitting par des non-informaticiens ou d'offrir une démonstration visuelle du formalisme et de ses capacités.
+
+Le dernier projet (R\&D ci-avant), mené par un seul étudiant, a porté sur la traduction d'un modèle de Thomas avec multiplexes vers un modèle de Thomas sans multiplexe, en vue de la traduction de celui-ci en réseau de Petri.
+Ce projet a permis de soulever des problématiques intéressantes liées à ce problème précis, et la traduction a été formalisée et démontrée par l'étudiant.
+
+
+
+\section{Modules d'apprentissage de l'école doctorale}
 
 Cette deuxième année de doctorat a été l'occasion de compléter les formations requises par l'école doctorale,
 et de rattraper le retard engendré l'an passé par le stage doctoral de trois mois au Japon.
@@ -66,19 +89,19 @@ Plus d'informations à : \url{http://movep.lif.univ-mrs.fr/}}
 {ASSB'13}{en attente de validation}
 {L'école thématique ASSB a pour but de réunir des chercheurs dans le domaine de la biologie des systèmes et de la biologie synthétique. Elle se déroule sur une semaine (du 25 au 29 mars) et s'articule autour de conférences et d'ateliers.
 
-Cette école thématique a été l'occasion d'entendre et de rencontrer des chercheurs du milieu dont j'avais parfois déjà lu des articles (bio-informatique et biologie des systèmes). Les exposés brassaient des thèmes assez variés, permettant notamment une ouverture vers la biologie que ma formation initiale ne m'a pas offerte. Cela m'a aussi permis de prendre quelques contacts dans le milieu. Enfin, j'ai eu la possibilité de présenter mon sujet et mon travail passé dans le cadre des « Présentations d'étudiants ».
+Cette école thématique a été l'occasion d'entendre et de rencontrer des chercheurs du milieu dont j'avais parfois déjà lu des articles (bio-informatique et biologie des systèmes). Les exposés brassaient des thèmes assez variés, permettant notamment une ouverture vers la biologie que ma formation initiale ne m'avait pas offerte. Cela m'a aussi permis de prendre quelques contacts dans le milieu. Enfin, j'ai eu la possibilité de présenter mon sujet et mon travail passé dans le cadre des présentations d'étudiants.
 
 Plus d'informations à : \url{http://epigenomique.free.fr/en/index.php}}
 
 \formation
 {JDOC'13}{validé}
-{La Journée des Doctorants (JDOC) est une manifestation destinée à promouvoir les rencontres entre les doctorants de l'école doctorale, à échanger sur leurs travaux de thèse en cours de préparation avec l'ensemble des autres doctorants, directeurs de recherche et co-encadrants de l'ED STIM. Elle concerne et implique la participation des doctorants de STIM inscrits en 2\textsuperscript{e} année, c'est une journée d'échange et d'apprentissage de la communication vers un public de scientifiques non spécialisés.
+{La Journée des Doctorants (JDOC) est une manifestation destinée à promouvoir les rencontres entre les doctorants de l'école doctorale et à échanger sur leurs travaux de thèse en cours de préparation avec l'ensemble des autres doctorants, directeurs de recherche et co-encadrants de l'école doctorale STIM. Elle concerne et implique la participation des doctorants de STIM inscrits en 2\textsuperscript{e} année ; c'est une journée d'échange et d'apprentissage de la communication vers un public de scientifiques non spécialisés.
 
 Objectifs :
 \begin{itemize}
-  \item Rapprocher les doctorants des différentes spécialités
-  \item Faire connaitre et valoriser les travaux de chacun
-  \item Favoriser les échanges
+  \item rapprocher les doctorants des différentes spécialités,
+  \item faire connaitre et valoriser les travaux de chacun,
+  \item favoriser les échanges.
 \end{itemize}
 
 Plus d'informations à : \url{https://sites.google.com/site/jdoc2013ang/}}
@@ -88,7 +111,7 @@ Plus d'informations à : \url{https://sites.google.com/site/jdoc2013ang/}}
 \subsection{Modules professionnels}
 
 \formation
-{Communication orale -- Présenter son projet de thèse en un temps limité}{validé}
+{Communication orale : présenter son projet de thèse en temps limité}{validé}
 {Les objectifs de ce module sont les suivants :
 \begin{itemize}
   \item Résumer en vingt minutes son projet de thèse au moyen de « Power Point », devant un auditoire pluridisciplinaire ;
@@ -97,8 +120,8 @@ Plus d'informations à : \url{https://sites.google.com/site/jdoc2013ang/}}
   \item Vidéo-scopie, analyses critiques, autoévaluation.
 \end{itemize}
 
-Ce module a été l'occasion d'apprendre à s'adresser à un public divers et éventuellement spécialisé (soutenance de thèse, réunion de laboratoire, entretien d'embauche, etc.).
-Il m'a aussi permis de m'entraîner à présenter mon sujet devant un public provenant de disciplines diverses (droit, lettre, sciences sociales, biologie, STAPS et informatique).}
+Ce module est l'occasion d'apprendre à s'adresser à un public divers et éventuellement non spécialisé (soutenance de thèse, réunion de laboratoire, entretien d'embauche, etc.).
+Il m'a aussi permis de m'entraîner à présenter mon sujet devant un public provenant de disciplines diverses (droit, lettres, sciences sociales, biologie, STAPS et informatique).}
 
 \formation
 {Découverte du journalisme scientifique avec initiation pratique au journalisme radio}{en attente de validation}
@@ -107,8 +130,8 @@ Il m'a aussi permis de m'entraîner à présenter mon sujet devant un public pro
 Outre la découverte du métier du journaliste scientifique et la sensibilisation à l'exercice de la vulgarisation, cette initiation au journalisme scientifique s'appuie sur toutes les différentes étapes de la réalisation d'une émission scientifique, commençant par la recherche, passant par l'écriture et l'enregistrement de voix à la diffusion d'une émission radio. Ce module de formation invite chaque participant à prendre du recul par rapport à ses travaux de recherche et par rapport à sa discipline lors de l'écriture d'articles, de réalisation d'interviews et de reportages sur un sujet choisi (thématique de recherche traitée dans un laboratoire de la région).
 
 L'émission de radio réalisée lors de ce module, intitulée \og Comprendre le monde quantique \fg, a été diffusée dans \textit{Le Labo des Savoirs} de la radio nantaise Prun'.
-Le podcast de l'émission est gratuitement disponible à l'écoute sur le site Internet de la radio.
-Plus d'informations à : \url{http://www.prun.net/emissions/le-labo-des-savoirs-07052013}}
+Le podcast de l'émission est gratuitement disponible à l'écoute sur le site Internet de la radio,
+à l'adresse : \url{http://www.prun.net/emissions/le-labo-des-savoirs-07052013}}
 
 \formation
 {Anglais pour la recherche}{en cours}
@@ -117,7 +140,7 @@ Plus d'informations à : \url{http://www.prun.net/emissions/le-labo-des-savoirs-
   \item Prise de parole en public :
   \begin{itemize}
     \item préparation à la présentation de travaux en congrès,
-    \item présentation d'une communication de 15' su son sujet de thèse ;
+    \item présentation d'une communication de 15' sur son sujet de thèse ;
   \end{itemize}
   \item Révision des notions grammaticales et lexicales de base de l'anglais scientifique avec l'ouvrage \textit{Minimum Competence in Scientific English}.
 \end{enumerate}}

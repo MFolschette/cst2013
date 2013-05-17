@@ -1,42 +1,50 @@
 \chapter{Perspectives}
 \label{chap:perspectives}
 
-\todo{Revoir !!!!
-\begin{itemize}
-  \item Priorités multiples avec précédence (données chronométriques ?)
-  \item Traduction CIF2PH (Carito) (projet étudiant ?)
-  \item Multiplexes avec délais (Morgan) (données chronométriques !)
-\end{itemize}
-Ci-dessous la version 2011/2012 de ce chapitre :}
-
 \section{Données chronométriques}
-À partir de modèles algébriques tels que le Process Hitting ou le modèle de Thomas, il est possible d'extraire des propriétés à caractère chronologique,
+
+À partir de modèles algébriques tels que le modèle de Thomas ou le Process Hitting, il est possible d'extraire des propriétés à caractère chronologique,
 par l'étude du Graphe des États ou à l'aide d'analyses statiques permettant de conclure quant à des atteignabilités successives de processus.
 Cependant, il peut être nécessaire de contraindre ou d'étudier un système en fonction de données chronométriques, portant sur la durée des processus mis en jeu plutôt que sur leur simple succession.
-L'une des perspectives de ce sujet serait ainsi d'étudier les possibilités d'étendre la sémantique du Process Hitting afin de pouvoir y inclure des données chronométriques discrètes ou continues.
 
-%Une telle extension pourrait revêtir différents buts.
-L'un des principaux buts d'une telle extension est l'inférence des délais au sein d'un modèle afin d'obtenir des résultats temporels sur certains phénomènes difficilement reproductibles ou observables expérimentalement.
+Une perspective envisageable serait l'ajout et l'exploitation d'informations temporelles (sous forme de délais de création et de dégradation des protéines, par exemple) au sein du modèle de Thomas, et notamment dans sa sémantique avec multiplexes.
+Ce travail avait été débuté par plusieurs étudiants dans le cadre de projets successifs portant sur la traduction du modèle de Thomas avec informations sur les délais vers une représentation équivalente en réseaux de Petri.
+L'extension de la sémantique du Process Hitting en vue d'y inclure des données chronométriques discrètes ou continues constitue une autre piste possible.
+
+L'un des principaux buts d'une telle extension est l'obtention de résultats temporels sur certains phénomènes difficilement reproductibles ou observables expérimentalement.
 L'étude du cycle circadien, qui fait partie des thématiques étudiées par MeForBio \textit{via} notamment le projet CirClock, est un exemple de domaine qui bénéficierait directement d'un tel développement.
-D'autres objectifs peuvent être dégagés de cette extension, comme l'ajout d'un système d'horloges à la modélisation permettant la représentation de comportements plus complexes et dépendant du temps.
+D'autres objectifs peuvent être dégagés de cette extension, comme la modélisation d'un système d'horloges permettant de contraindre les comportements d'un système en fonction de données chronométriques.
 
-Cette perspective s'inscrit dans la collaboration en cours de développement avec l'équipe du professeur Katsumi Inoue du National Institue of Informatics,
+Cette perspective s'inscrit plus généralement dans la collaboration en cours entre l'équipe MeForBio et l'Inoue Lab. du National Institue of Informatics,
 dont le but est de développer des outils permettant l'inférence de données chronométriques à l'aide d'outils SAT.
-%dans le cadre d'un projet STIC-Asie SATTIBIS
-
-%Projet avec le Japon
-%+ sujet doctorat
 
 
 
 \section{Réflexion sur les propriétés d'atteignabilité}
 
-L'une des forces principales du Process Hitting repose en les outils d'analyse statique permettant de vérifier des propriétés d'atteignabilité.
-Cependant, ces outils s'appliquent uniquement à la sémantique de base du Process Hitting ;
-les ajouts à la sémantique entraînent généralement l'impossibilité d'utiliser ces outils.
-Une perspective intéressante serait ainsi de mener une réflexion approfondie sur l'application de ces outils à d'autres sémantiques.
+Les outils d'analyse statique permettant de vérifier des propriétés d'atteignabilité sur un modèle Process Hitting en constituent l'une des principales forces.
+Cependant, ces outils ne s'appliquent actuellement qu'à la sémantique initiale du Process Hitting
+et à une extension réduite de la sémantique avec priorités fixes (cf.~section.~\ref{sec:cs2bio}).
+D'autres ajouts à la sémantique ne sont généralement pas compatibles avec ces outils.
 
-Le Process Hitting à priorités fixes, au moins dans certaines restrictions de son utilisation, pourrait notamment bénéficier de ces outils.
-Leur application aux autres sémantiques présentées à la section \todo{xx} pourrait pourrait être intéressante sous réserve que ces sémantiques présentent un intérêt pour certaines modélisation.
-Enfin, cette réflexion devra être menée durant tout le processus de développement d'une sémantique de Process Hitting intégrant des données chronométriques,
-afin d'en permettre une exploitation efficace.
+Afin de généraliser davantage encore la notion de priorités fixes, il serait intéressant de pouvoir étendre les outils d'analyse statique à un nombre quelconque de classes de priorités entre actions.
+Pour cela, une analyse itérative du graphe de causalité locale de l'analyse statique peut être envisagée afin d'obtenir des résultats complets tout en profitant de la faible complexité de la construction de ce graphe.
+Permettre un nombre quelconque de classes de priorités permettrait aussi de s'approcher d'une modélisation avec données chronométriques,
+en rapprochant la priorité d'une action à un délai temporel.
+
+
+
+\section{Enrichissement du dépôt de modèles du Process Hitting}
+L'une des faiblesses actuelles du Process Hitting est le manque de modèles utilisant ce formalismes.
+Cet aspect est pourtant déterminant dans sa propagation, car un plus grand nombre de modèles permettrait de démontrer sa puissance, et donc d'attirer de nouveaux utilisateurs.
+Deux pistes principales peuvent être envisagées pour cela.
+
+D'une part, le développement d'une traduction automatisée de Réseaux Discrets en Process Hitting pourrait être développé à l'aide du formalisme \texttt{sbml-qual}\footnote{\url{http://sbml.org/Community/Wiki/SBML_Level_3_Proposals/Qualitative_Models}}.
+Ce formalisme offre une représentation généralisée commune à plusieurs formalismes qualitatifs, dont le modèle de Thomas au format GINsim\footnote{\url{http://gin.univ-mrs.fr/GINsim/ginml.html}}.
+Un outil permettant d'exporter un modèle \texttt{sbml-qual} en Process Hitting ouvrirait ainsi la porte à l'importation de modèles existants depuis plusieurs autres types de formalismes.
+
+D'autre part, le format SIF, exploité notamment par le logiciel Cytoscape, semble être une autre source possible de modèles convertibles en Process Hitting.
+Une traduction avait été proposée par Carito Guziolowski \textit{et al.}\footnote{\url{http://tigacenter.bioquant.uni-heidelberg.de/supplements/inferringFromPID.html}} permettant la traduction de modèles tirés de la base de données PID\footnote{\url{http://pid.nci.nih.gov/index.shtml}} en modèles exploitables au format SIF.
+Ainsi, une traduction du format SIF vers le Process Hitting permettrait l'exploitation de modèles tirés de la base de données PID.
+
+Ces outils de traduction pourront faire l'objet de projets d'étudiants.

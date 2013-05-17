@@ -1,27 +1,29 @@
 \chapter{Contributions}
 
+\newcommand{\hoare}[3]{\{\ #1\ \}\ #2\ \{\ #3\ \}}
+
 \section{Inférence de paramètres par la logique de Hoare \normalsize(en cours)}
 \label{sec:hoare}
-\todo{À laisser ?}
 
-Une thèse de master \cite{Folschette2011} dont le sujet était “Application de la logique de Hoare aux Réseaux de Régulation Génétiques avec multiplexes” a été réalisée au sein de la même équipe avant le début de ce doctorat.
+Réalisée au sein de l'équipe MeForbio avant le début de mon doctorat, ma thèse de master avait pour sujet l'« Application de la logique de Hoare aux Réseaux de Régulation Génétiques avec multiplexes »~\cite{Folschette2011}.
 Son objectif était d'étudier des travaux en cours permettant de déduire les propriétés nécessaires d'un système pour observer certains comportements dynamiques, et d'implémenter une telle analyse.
-La logique de Hoare, introduite dans \cite{hoare-69}, se base sur un triplet (dit \emph{triplet de Hoare}) qui représente :
+La logique de Hoare, introduite dans \cite{hoare-69}, se base des \emph{triplets de Hoare}, notés $\hoare{P}{Q}{R}$, et où :
 \begin{itemize}
-  \item une pré-condition (état initial),
-  \item un programme impératif (chemin d'exécution),
-  \item une post-condition (état final).
+  \item $P$ est une pré-condition (état initial),
+  \item $Q$ est un programme impératif (chemin d'exécution),
+  \item $R$ est une post-condition (état final).
 \end{itemize}
-Un tel triplet signifie que, partant d'un état initial respectant la pré-condition, l'exécution du programme amènera toujours le système dans un état final respectant la post-condition.
+Un triplet $\hoare{P}{Q}{R}$ signifie que, partant d'un état initial respectant la pré-condition~$P$, l'exécution du programme~$Q$ amènera toujours le système dans un état final respectant la post-condition~$R$.
 D'après les travaux de Dijkstra~\cite{dijkstra-75}, il est possible, en ne connaissant que le programme et la post-condition,
 d'inférer la plus faible pré-condition possible permettant d'obtenir un tel triplet.
 
-Ainsi, les travaux sur lesquels se basent la thèse de master utilisent la logique de Hoare pour,
-à partir d'un ensemble de dynamiques possibles d'un système biologique (représentées par un programme impératif)
-et d'un ensemble d'états finals du système (représentés par une post-condition),
-obtenir la plus large condition nécessaire le système, par calcul de la plus faible pré-condition.
+Les travaux sur lesquels se basent ma thèse de master utilisent ainsi la logique de Hoare pour,
+à partir d'un ensemble de dynamiques possibles d'un système biologique (représentées par un programme impératif~$Q$)
+et d'un ensemble d'états finals du système (représentés par une post-condition~$R$),
+obtenir la plus large condition nécessaire (par calcul de la plus faible pré-condition~$P$)
+telle que le système vérifie $\hoare{P}{Q}{R}$.
 Cette méthode se distingue par la possibilité d'inférer, en plus d'un ensemble d'états initiaux, une classe de paramétrisations pour lesquelles les dynamiques données sont possibles.
-De plus, sa complexité est fortement réduite par rapport à un calcul du Graphe des États.
+De plus, sa complexité est fortement réduite comparée à un calcul du Graphe des États.
 Cependant, son aboutissement lors du travail de master n'avait été que partiel face à certaines difficultés d'implémentation, bien que l'essai eut été effectué avec trois approches différentes :
 \begin{itemize}
   \item une approche mathématique sous forme de preuves avec Coq,
@@ -29,21 +31,21 @@ Cependant, son aboutissement lors du travail de master n'avait été que partiel
   \item une approche logique en Prolog.
 \end{itemize}
 
-Fort d'un recul supplémentaire après un an de doctorat et de la connaissance d'ASP acquise au National Institute of Informatics, j'ai pu me replonger dans ce problème afin de proposer une approche et une implémentation efficaces.
+Fort d'un recul supplémentaire après un an de doctorat et de la connaissance d'ASP acquise au National Institute of Informatics (cf.~section~\ref{sec:collaboration}), j'ai pu me replonger dans ce problème afin de proposer une approche et une implémentation efficaces.
 Cette nouvelle implémentation se base sur une représentation arborescente (et non fonctionnelle) des propriétés (pré-condition et post-condition) ce qui permet, contrairement aux implémentations précédentes, de les manipuler aisément.
-Cette nouvelle approche se compose de trois modules aux objectifs distincts :
+Cette approche se compose de trois modules aux objectifs distincts :
 \begin{itemize}
-  \item Le noyau est écrit en OCaml et permet de calculer la plus faible pré-condition à partir du couple programme et post-condition donné ;
-  \item L'énumération des solutions possibles (état initial et paramétrisation) peut être réalisé à l'aide d'un programme ASP représentant la pré-condition obtenue ;
-  \item La fonction de simplification, ajoutée au noyaux en OCaml, permet enfin de simplifier la pré-condition obtenue lorsque certains termes sont trivialement vrais ou faux, ou l'affaiblir en fonction de contraintes sur les paramètres et la condition initiale ; cette simplification s'avère utile pour manipuler la propriété obtenue sans avoir à calculer explicitement la classe de solutions sous-jacente.
+  \item Le noyau est écrit en OCaml et permet de calculer la plus faible pré-condition~$P$ à partir d'un couple~$(Q ; R)$ formé d'un programme et d'une post-condition donnés ;
+  \item L'énumération des solutions possibles (sous la forme de couples~$(s ; K)$ représentant état initial et paramétrisation) peut être réalisée à l'aide d'une traduction de la pré-condition~$P$ obtenue en un programme ASP ;
+  \item La fonction de simplification, ajoutée au noyaux en OCaml, permet enfin de simplifier ou d'affaiblir la pré-condition~$P$ obtenue lorsque certaines données sont connues (niveaux d'expression ou paramètres) ; cette simplification s'avère utile pour manipuler la propriété obtenue sans avoir à calculer explicitement la classe de solutions sous-jacente.
 \end{itemize}
 
 Cette nouvelle implémentation n'a pas encore fait l'objet d'une publication ou d'une communication, faute de la publication de l'article théorique initial.
-Cependant, elle est fonctionnelle et les résultats sont satisfaisants car elle permet de répondre aux divers exemples proposés ainsi qu'à des cas appliqués plus complexes.
-Elle permet actuellement de répondre en moins d'une seconde \todo{chiffres précis} là où les anciennes implémentations sont fortement limitées :
+Cependant, elle est fonctionnelle et semble prometteuse car elle permet de répondre aux divers exemples proposés ainsi qu'à des cas appliqués plus complexes.
+Elle permet actuellement de répondre en moins d'une seconde \todo{chiffres précis} là où les précédentes implémentations sont fortement limitées :
 \begin{itemize}
   \item en temps lorsqu'il faut calculer le Graphe des États pour chaque paramétrisation possible,
-  \item en mémoire lorsqu'il faut énumérer explicitement tous les états initiaux et paramétrisations en même temps.
+  \item en mémoire lorsqu'il est nécessaire d'énumérer explicitement et conjointement tous les états initiaux et toutes les paramétrisations.
 \end{itemize}
 En ce sens, ce travail s'intègre parfaitement à la problématique d'exploitation des grands Réseaux de Régulation Biologiques.
 
@@ -81,7 +83,7 @@ Un tel comportement est possible car la mise à jour de la sorte coopérative $a
 $ab_{10}$ peut rester actif même lorsque $a_1$ n'est plus actif.
 
 Afin de pallier cela, la notion de priorités fixes avait déjà été évoquée.
-Cette idée a été développée et a donné lieu à une publication retenue au workshop CS2Bio 2013 \cite{FPMR13-CS3Bio}.
+Cette idée a été développée et a donné lieu à une \bemph{publication retenue à la conférence internationale CS2Bio 2013}~\cite{FPMR13-CS3Bio}.
 Les apports techniques de ce travail se divisent en deux point principaux.
 \begin{itemize}
   \item D'une part, une extension formelle du Process Hitting est proposée, sous la forme d'une sémantique avec mise à jour prioritaire des sortes coopératives.
@@ -112,9 +114,10 @@ cette sémantique est faiblement bisimilaire à la sémantique présentée dans 
 
 Cette première année de thèse avait été l'occasion de compléter les liens formels entre modèle de Thomas et Process Hitting,
 en publiant notamment une méthode de traduction d'un modèle en Process Hitting vers un (ensemble de) modèle(s) de Thomas dont le comportement est strictement inclus.
-Ce travail avait été réalisé lors d'un stage doctoral de trois mois au National Institute of Informatics à Tokyo, supervisé par le professeur Katsumi Inoue, et avait abouti à une implémentation sous la forme de l'outil \texttt{ph2thomas} intégré à la bibliothèque existante Pint\footnote{Disponible à \url{http://process.hitting.free.fr}} et utilisant notamment un paradigme de programmation logique appelé \emph{Answer Set Programming} (ASP).
-Il a fait l'objet d'une publication en workshop présentée en septembre \cite{FPIMR12-LDSSB}, d'une publication en conférence internationale \cite{FPIMR12-CMSB} présentée en octobre, et donne lieu aujourd'hui à une collaboration durable entre l'équipe MeForBio et l'Inoue Laboratory.
-Ce travail fait actuellement l'objet d'une révision en vue de sa soumission dans la revue Theoretical Computer Science.
+Ce travail avait été réalisé l'année précédente lors d'un stage doctoral de trois mois, du 1\textsuperscript{er} mars au 25 mai 2012, au National Institute of Informatics à Tokyo, supervisé par le professeur Katsumi Inoue.
+Il avait abouti à une implémentation sous la forme de l'outil \texttt{ph2thomas} intégré à la bibliothèque existante Pint\footnote{Disponible à \url{http://process.hitting.free.fr}} et utilisant notamment un paradigme de programmation logique appelé \emph{Answer Set Programming} (ASP).
+Cela a permis de produire une publication en workshop~\cite{FPIMR12-LDSSB} présentée en septembre 2012, une publication en conférence internationale~\cite{FPIMR12-CMSB} présentée en octobre 2012, et donne lieu aujourd'hui à une collaboration durable entre l'équipe MeForBio et l'Inoue Laboratory.
+Ce travail fait actuellement l'objet d'une \bemph{révision en vue de sa soumission dans la revue Theoretical Computer Science}.
 
 L'inférence d'un modèle de Thomas depuis un Process Hitting donné se décompose en deux étapes principales :
 \begin{itemize}
