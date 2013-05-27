@@ -5,9 +5,9 @@
 \section{Inférence de paramètres par la logique de Hoare \normalsize(en cours)}
 \label{sec:hoare}
 
-Réalisée au sein de l'équipe MeForbio avant le début de mon doctorat, ma thèse de master avait pour sujet l'« Application de la logique de Hoare aux Réseaux de Régulation Génétiques avec multiplexes »~\cite{Folschette2011}.
-Son objectif était d'étudier des travaux en cours permettant de déduire les propriétés nécessaires d'un système pour observer certains comportements dynamiques, et d'implémenter une telle analyse.
-La logique de Hoare, introduite dans \cite{hoare-69}, se base des \emph{triplets de Hoare}, notés $\hoare{P}{Q}{R}$, et où :
+Réalisée au sein de l'équipe MeForbio avant le début de ce doctorat, ma thèse de master avait pour sujet l'« Application de la logique de Hoare aux Réseaux de Régulation Génétiques avec multiplexes »~\cite{Folschette2011}.
+Son objectif était d'étudier des travaux en cours~\cite{khalis-bernot-comet-richard-roux-siebert-UnPublished} permettant de déduire les propriétés nécessaires d'un système pour observer certains comportements dynamiques, et d'implémenter une telle analyse.
+La logique de Hoare, introduite dans \cite{hoare-69}, se base des \emph{triplets de Hoare} notés $\hoare{P}{Q}{R}$, où :
 \begin{itemize}
   \item $P$ est une pré-condition (état initial),
   \item $Q$ est un programme impératif (chemin d'exécution),
@@ -15,16 +15,16 @@ La logique de Hoare, introduite dans \cite{hoare-69}, se base des \emph{triplets
 \end{itemize}
 Un triplet $\hoare{P}{Q}{R}$ signifie que, partant d'un état initial respectant la pré-condition~$P$, l'exécution du programme~$Q$ amènera toujours le système dans un état final respectant la post-condition~$R$.
 D'après les travaux de Dijkstra~\cite{dijkstra-75}, il est possible, en ne connaissant que le programme et la post-condition,
-d'inférer la plus faible pré-condition possible permettant d'obtenir un tel triplet.
+d'inférer la plus faible pré-condition possible donnant un tel triplet.
 
 Les travaux sur lesquels se basent ma thèse de master utilisent ainsi la logique de Hoare pour,
 à partir d'un ensemble de dynamiques possibles d'un système biologique (représentées par un programme impératif~$Q$)
 et d'un ensemble d'états finals du système (représentés par une post-condition~$R$),
 obtenir la plus large condition nécessaire (par calcul de la plus faible pré-condition~$P$)
 telle que le système vérifie $\hoare{P}{Q}{R}$.
-Cette méthode se distingue par la possibilité d'inférer, en plus d'un ensemble d'états initiaux, une classe de paramétrisations pour lesquelles les dynamiques données sont possibles.
+Cette méthode se distingue par la possibilité d'inférer, en plus d'un ensemble d'états initiaux, une classe de paramétrisations pour lesquelles la dynamique donnée par $Q$ est réalisable.
 De plus, sa complexité est fortement réduite comparée à un calcul du Graphe des États.
-Cependant, son aboutissement lors du travail de master n'avait été que partiel face à certaines difficultés d'implémentation, bien que l'essai eut été effectué avec trois approches différentes :
+Cependant, son aboutissement lors du travail de master n'avait été que partiel face à certaines difficultés d'implémentation, bien que le travail eut été abordé par trois approches différentes :
 \begin{itemize}
   \item une approche mathématique sous forme de preuves avec Coq,
   \item une approche fonctionnelle en OCaml,
@@ -36,18 +36,17 @@ Cette nouvelle implémentation se base sur une représentation arborescente (et 
 Cette approche se compose de trois modules aux objectifs distincts :
 \begin{itemize}
   \item Le noyau est écrit en OCaml et permet de calculer la plus faible pré-condition~$P$ à partir d'un couple~$(Q ; R)$ formé d'un programme et d'une post-condition donnés ;
-  \item L'énumération des solutions possibles (sous la forme de couples~$(s ; K)$ représentant état initial et paramétrisation) peut être réalisée à l'aide d'une traduction de la pré-condition~$P$ obtenue en un programme ASP ;
-  \item La fonction de simplification, ajoutée au noyaux en OCaml, permet enfin de simplifier ou d'affaiblir la pré-condition~$P$ obtenue lorsque certaines données sont connues (niveaux d'expression ou paramètres) ; cette simplification s'avère utile pour manipuler la propriété obtenue sans avoir à calculer explicitement la classe de solutions sous-jacente.
+  \item L'énumération des solutions possibles (sous la forme de couples~$(S ; K)$ représentant un état initial et une paramétrisation) peut être réalisée à l'aide d'une traduction de la pré-condition~$P$ obtenue en un programme ASP ;
+  \item La fonction de simplification, ajoutée au noyaux en OCaml, permet enfin de simplifier ou d'affaiblir la pré-condition~$P$ obtenue lorsque certaines données sont connues (niveaux d'expression ou paramètres) ou que certaines parties de la propriété sont trivialement vraies ou fausses.
 \end{itemize}
+Cette implémentation tire notamment sa force de la fonction de simplification qui s'avère utile pour manipuler la propriété obtenue sans avoir à calculer explicitement la classe de solutions sous-jacente.
 
 Cette nouvelle implémentation n'a pas encore fait l'objet d'une publication ou d'une communication, faute de la publication de l'article théorique initial.
-Cependant, elle est fonctionnelle et semble prometteuse car elle permet de répondre aux divers exemples proposés ainsi qu'à des cas appliqués plus complexes.
-Elle permet actuellement de répondre en moins d'une seconde \todo{chiffres précis} là où les précédentes implémentations sont fortement limitées :
-\begin{itemize}
-  \item en temps lorsqu'il faut calculer le Graphe des États pour chaque paramétrisation possible,
-  \item en mémoire lorsqu'il est nécessaire d'énumérer explicitement et conjointement tous les états initiaux et toutes les paramétrisations.
-\end{itemize}
+Cependant, elle est fonctionnelle et semble prometteuse car elle permet de répondre à la majorité des exemples proposés dans~\cite{khalis-bernot-comet-richard-roux-siebert-UnPublished} ainsi qu'au cas appliqué du phage lambda\footnote{4 gènes et 48 états possibles ; disponible dans le dépôt de modèles de GINsim \url{http://gin.univ-mrs.fr/}}.
+Comme la solution implémentée ici n'énumère pas tous les couples $(S ; K)$ d'état initial et paramétrisation possibles pour ce modèle (qui s'élèvent à plus de $6.10^9$), elle effectue le calcul de la plus faible pré-condition et sa simplification en moins d'un dixième de seconde sur un ordinateur de bureau.
 En ce sens, ce travail s'intègre parfaitement à la problématique d'exploitation des grands Réseaux de Régulation Biologiques.
+Ce résultat est à opposer à l'implémentation fonctionnelle précédente qui dépassait les capacités en mémoire de la machine utilisée en effectuant l'énumération exhaustive de ces possibilités.
+D'autres essais sont à envisager afin d'évaluer les performances en temps de cette solution à l'aide de modèles plus gros comme le modèle ERBB S/G1\footnote{20 gènes et $2^{20} = 10^6$ états ; disponible dans le dépôt de modèles de GINsim \url{http://gin.univ-mrs.fr/}}.
 
 
 
@@ -55,7 +54,7 @@ En ce sens, ce travail s'intègre parfaitement à la problématique d'exploitati
 \label{sec:cs2bio}
 
 Parmi les perspectives de l'année précédente figurait une « réflexion sur les propriétés d'atteignabilité », notamment par l'enrichissement de la sémantique du Process Hitting et l'adaptation de l'analyse statique.
-En effet, l'ajout d'expressivité à la sémantique de base du Process Hitting, et notamment de priorités fixes entre les actions, rend caduque certaines propriétés d'atteignabilité, car la dynamique évolue en conséquence.
+En effet, l'ajout d'expressivité à la sémantique de base du Process Hitting, et notamment de priorités fixes entre les actions pour rendre la modélisation plus précise, rend caduque certaines propriétés d'atteignabilité, car la dynamique évolue en conséquence.
 
 L'objectif d'une extension de sémantique est la création de modèles plus justes et plus proches de modélisations existantes.
 Ainsi, la sémantique de base du Process Hitting permet une coopération entre composants à l'aide de sortes particulières appelées sortes coopératives.
@@ -68,7 +67,7 @@ Il est alors possible d'ajouter une action déclenchée par un processus de la s
 
 Un tel mécanisme à base de sortes coopératives souffre cependant d'un problème de “décalage temporel” au niveau des mises à jour.
 En effet, rien de force à jouer prioritairement les actions de mise à jour des sortes coopératives par rapport aux autres actions.
-Par conséquent, une sorte coopérative représente toujours l'état présent ou un état passé du système, ce autorise parfois des comportements non souhaitables.
+Par conséquent, une sorte coopérative représente toujours l'état présent ou un état passé du système, ce qui autorise parfois des comportements non souhaitables.
 Par exemple, dans le Process Hitting de la figure~\ref{fig:exPH}, la dynamique suivante est possible (les processus qui évoluent sont indiqués en gras) :
 $$
   \PHetat{a_1, b_0, ab_{10}, c_0} \rightarrow
@@ -88,10 +87,10 @@ Les apports techniques de ce travail se divisent en deux point principaux.
 \begin{itemize}
   \item D'une part, une extension formelle du Process Hitting est proposée, sous la forme d'une sémantique avec mise à jour prioritaire des sortes coopératives.
   Ces priorités permettent de résoudre les problèmes de décalage temporel vus précédemment.
-  Elles sont restreintes dans ce travail à l'ajout d'une seule classe d'actions priorisées, à laquelle appartiennent toutes les actions de mise à jour des sortes coopératives et qui doivent ainsi être jouées de façon prioritaire, avant toute autre action non priorisée,
+  Elles sont restreintes dans ce travail à l'ajout d'une seule classe d'actions priorisées, à laquelle appartiennent toutes les actions de mise à jour des sortes coopératives et qui doivent ainsi être jouées de façon prioritaire, avant toute autre action non priorisée.
   Cette classe d'actions priorisées est représentée dans l'exemple de la figure~\ref{fig:exPH} par l'ensemble des actions en trait épais :
   l'accessibilité de $ab_{11}$ est rendue impossible car lorsque le processus $a_0$ est atteint, l'action prioritaire $\PHfrappe{a_0}{ab_{10}}{ab_{00}}$ doit nécessairement être jouée avant l'action $\PHfrappe{a_0}{b_0}{b_1}$.
-  \item D'autre part, il a été nécessaire d'adapter une partie des méthodes initiales d'analyse statique qui ne s'appliquent pas à cette sémantique étendue.
+  \item D'autre part, il a été nécessaire d'adapter une partie des méthodes d'analyse statique qui ne s'appliquent pas à cette sémantique étendue.
   La méthode de sous-approximation a été revue et prend désormais en compte le caractère priorisé des actions de mise à jour.
   La méthode de sur-approximation reste en revanche valable sur le Process Hitting “aplati” (\ie sans considérer les classes de priorité).
 \end{itemize}
@@ -103,9 +102,9 @@ soit une performance bien supérieure à celle d'un model-checker standard.
 
 Ces résultats font écho à la première étude réalisée au début de la thèse, qui avait abouti à la formalisation de deux nouvelles sémantiques plus expressives du Process Hitting.
 La première introduisait la notion d'\emph{arc neutralisant} modélisant une priorité locale entre deux actions ;
-il a été montré que cette sémantique est faiblement bisimilaire à la sémantique du Process Hitting avec priorités fixes.
+cette sémantique est faiblement bisimilaire à la sémantique du Process Hitting avec deux priorités fixes présentée dans cette section.
 La seconde consistait en la généralisation de la notion d'action à celle d'\emph{action conjointe} possédant plusieurs frappeurs ;
-cette sémantique est faiblement bisimilaire à la sémantique présentée dans cette section car une action conjointe possède le même comportement qu'une sorte coopérative avec actions priorisées bien choisie.
+cette sémantique est aussi faiblement bisimilaire à la sémantique présentée dans cette section car une action conjointe possède le même comportement qu'une sorte coopérative avec actions priorisées.
 
 
 
@@ -117,7 +116,7 @@ en publiant notamment une méthode de traduction d'un modèle en Process Hitting
 Ce travail avait été réalisé l'année précédente lors d'un stage doctoral de trois mois, du 1\textsuperscript{er} mars au 25 mai 2012, au National Institute of Informatics à Tokyo, supervisé par le professeur Katsumi Inoue.
 Il avait abouti à une implémentation sous la forme de l'outil \texttt{ph2thomas} intégré à la bibliothèque existante Pint\footnote{Disponible à \url{http://process.hitting.free.fr}} et utilisant notamment un paradigme de programmation logique appelé \emph{Answer Set Programming} (ASP).
 Cela a permis de produire une publication en workshop~\cite{FPIMR12-LDSSB} présentée en septembre 2012, une publication en conférence internationale~\cite{FPIMR12-CMSB} présentée en octobre 2012, et donne lieu aujourd'hui à une collaboration durable entre l'équipe MeForBio et l'Inoue Laboratory.
-Ce travail fait actuellement l'objet d'une \bemph{révision en vue de sa soumission dans la revue Theoretical Computer Science}.
+Ce travail fait actuellement l'objet d'une \bemph{révision en vue de sa soumission dans la revue Theoretical Computer Science}, dont la rédaction est très avancée.
 
 L'inférence d'un modèle de Thomas depuis un Process Hitting donné se décompose en deux étapes principales :
 \begin{itemize}
@@ -126,7 +125,7 @@ L'inférence d'un modèle de Thomas depuis un Process Hitting donné se décompo
   \item L'inférence des paramètres permet d'obtenir une paramétrisation (possiblement partielle) telle que le modèle final respecte la dynamique du Process Hitting initial (aucun comportement supplémentaire n'est possible).
 \end{itemize}
 Ces deux étapes peuvent échouer car certains comportement du Process Hitting ne peuvent être représentés pas un modèle de Thomas.
-Ainsi, si certains paramètres n'ont pas pu être inférés lors de la seconde étape, cela signifie généralement que la dynamique du Process Hitting est trop générale pour être représentée par un unique modèle de Thomas.
+Ainsi, si certains paramètres n'ont pas pu être inférés lors de la seconde étape, cela signifie le plus souvent que la dynamique du Process Hitting est trop générale pour être représentée par un unique modèle de Thomas.
 Dans ce cas, une énumération des paramétrisations complètes et compatibles peut être effectuée pour rattraper cet échec, afin d'obtenir une classe de modèles de Thomas respectant la dynamique du modèle initial.
 De même, la première étape de l'inférence peut, en outre des arcs positifs et négatifs du GI, produire des arcs non-signés lorsque certaines régulations ne peuvent être résumés à de simples activations ou inhibitions.
 Cependant, dans la première version de ce travail, cette première étape ne pouvait être rattrapée,
