@@ -7,7 +7,7 @@
 
 Réalisée au sein de l'équipe MeForbio avant le début de ce doctorat, ma thèse de master avait pour sujet l'« Application de la logique de Hoare aux Réseaux de Régulation Génétiques avec multiplexes »~\cite{Folschette2011}.
 Son objectif était d'étudier des travaux en cours~\cite{khalis-bernot-comet-richard-roux-siebert-UnPublished} permettant de déduire les propriétés nécessaires d'un système pour observer certains comportements dynamiques, et d'implémenter une telle analyse.
-La logique de Hoare, introduite dans \cite{hoare-69}, se base des \emph{triplets de Hoare} notés $\hoare{P}{Q}{R}$, où :
+La logique de Hoare, introduite dans \cite{hoare-69}, se base sur des \emph{triplets de Hoare} notés $\hoare{P}{Q}{R}$, où :
 \begin{itemize}
   \item $P$ est une pré-condition (état initial),
   \item $Q$ est un programme impératif (chemin d'exécution),
@@ -19,7 +19,7 @@ d'inférer la plus faible pré-condition possible donnant un tel triplet.
 
 Les travaux sur lesquels se basent ma thèse de master utilisent ainsi la logique de Hoare pour,
 à partir d'un ensemble de dynamiques possibles d'un système biologique (représentées par un programme impératif~$Q$)
-et d'un ensemble d'états finals du système (représentés par une post-condition~$R$),
+et d'un ensemble d'états finaux du système (représentés par une post-condition~$R$),
 obtenir la plus large condition nécessaire (par calcul de la plus faible pré-condition~$P$)
 telle que le système vérifie $\hoare{P}{Q}{R}$.
 Cette méthode se distingue par la possibilité d'inférer, en plus d'un ensemble d'états initiaux, une classe de paramétrisations pour lesquelles la dynamique donnée par $Q$ est réalisable.
@@ -54,19 +54,19 @@ D'autres essais sont à envisager afin d'évaluer les performances en temps de c
 \label{sec:cs2bio}
 
 Parmi les perspectives de l'année précédente figurait une « réflexion sur les propriétés d'atteignabilité », notamment par l'enrichissement de la sémantique du Process Hitting et l'adaptation de l'analyse statique.
-En effet, l'ajout d'expressivité à la sémantique de base du Process Hitting, et notamment de priorités fixes entre les actions pour rendre la modélisation plus précise, rend caduque certaines propriétés d'atteignabilité, car la dynamique évolue en conséquence.
+En effet, l'ajout d'expressivité à la sémantique de base du Process Hitting, et notamment de priorités fixes entre les actions pour rendre la modélisation plus précise, rend caduques certaines propriétés d'atteignabilité, car la dynamique évolue en conséquence.
 
 L'objectif d'une extension de sémantique est la création de modèles plus justes et plus proches de modélisations existantes.
 Ainsi, la sémantique de base du Process Hitting permet une coopération entre composants à l'aide de sortes particulières appelées sortes coopératives.
 L'objectif d'une sorte coopérative est de représenter chacun des états entremêlés de plusieurs composants.
-Par exemple, la sorte $ab$ de la figure~\ref{fig:exPH} est une sorte coopérative sur les sortes $a$ et $b$ : chacun de ses processus représente un sous-état des états indépendants de $a$ et $b$ ($ab_{01}$ modélise la présence de $a_0$ et $b_1$, etc.).
-Les actions frappant la sorte $ab$ permettent de \emph{mettre à jour} l'état de cette sorte en fonction de l'état des composants qu'elle représente ;
-par exemple, les actions $\PHfrappe{a_0}{ab_{11}}{ab_{01}}$ et $\PHfrappe{a_0}{ab_{10}}{ab_{00}}$ permettent sa mise à jour lorsque le processus $a_0$ est actif.
+La sorte $ab$ de la figure~\ref{fig:exPH} est un exemple de sorte coopérative sur les sortes $a$ et $b$ : chacun de ses processus représente un sous-état des états indépendants de $a$ et $b$ (par exemple, $ab_{01}$ modélise la présence de $a_0$ et $b_1$).
+Les actions frappant la sorte $ab$ permettent de \emph{mettre à jour} l'état de cette sorte en fonction de l'état des composants qu'elle représente
+(par exemple, les actions $\PHfrappe{a_0}{ab_{11}}{ab_{01}}$ et $\PHfrappe{a_0}{ab_{10}}{ab_{00}}$ permettent sa mise à jour lorsque le processus $a_0$ est actif).
 Ainsi, l'accessibilité d'un processus de la sorte coopérative est conditionnée par l'accessibilité de chaque processus qu'il représente.
 Il est alors possible d'ajouter une action déclenchée par un processus de la sorte coopérative plutôt que plusieurs actions indépendantes partant des composants qui coopèrent, comme l'action $\PHfrappe{ab_{11}}{c_0}{c_1}$ de la figure~\ref{fig:exPH}.
 
-Un tel mécanisme à base de sortes coopératives souffre cependant d'un problème de “décalage temporel” au niveau des mises à jour.
-En effet, rien de force à jouer prioritairement les actions de mise à jour des sortes coopératives par rapport aux autres actions.
+Un tel mécanisme à base de sortes coopératives souffre cependant d'un problème de «~décalage temporel~» au niveau des mises à jour, du fait notamment de leur nature asynchrone.
+En effet, rien ne force à jouer prioritairement les actions de mise à jour des sortes coopératives par rapport aux autres actions.
 Par conséquent, une sorte coopérative représente toujours l'état présent ou un état passé du système, ce qui autorise parfois des comportements non souhaitables.
 Par exemple, dans le Process Hitting de la figure~\ref{fig:exPH}, la dynamique suivante est possible (les processus qui évoluent sont indiqués en gras) :
 $$
@@ -92,11 +92,11 @@ Les apports techniques de ce travail se divisent en deux point principaux.
   l'accessibilité de $ab_{11}$ est rendue impossible car lorsque le processus $a_0$ est atteint, l'action prioritaire $\PHfrappe{a_0}{ab_{10}}{ab_{00}}$ doit nécessairement être jouée avant l'action $\PHfrappe{a_0}{b_0}{b_1}$.
   \item D'autre part, il a été nécessaire d'adapter une partie des méthodes d'analyse statique qui ne s'appliquent pas à cette sémantique étendue.
   La méthode de sous-approximation a été revue et prend désormais en compte le caractère priorisé des actions de mise à jour.
-  La méthode de sur-approximation reste en revanche valable sur le Process Hitting “aplati” (\ie sans considérer les classes de priorité).
+  La méthode de sur-approximation reste en revanche valable sur le Process Hitting «~aplati~» (\ie sans considérer les classes de priorité).
 \end{itemize}
 Il a enfin été montré que cette sémantique étendue est bisimilaire aux réseaux discrets (dont fait partie la modélisation de Thomas).
 Ainsi, nous avons développé une méthode d'analyse d'atteignabilité très efficace sur les réseaux discrets booléens et multivalués.
-Ces travaux ont été intégrés à la bibliothèque Pint et testés notamment sur un modèle booléen de 94 composants :
+Ces travaux ont été intégrés à la bibliothèque Pint\footnote{Disponible à \url{http://process.hitting.free.fr}} et testés notamment sur un modèle booléen de 94 composants :
 les résultats sont tous conclusifs et ont été obtenus en quelques centièmes de secondes sur un ordinateur personnel,
 soit une performance bien supérieure à celle d'un model-checker standard.
 
@@ -111,10 +111,10 @@ cette sémantique est aussi faiblement bisimilaire à la sémantique présentée
 \section{Extraction de Réseaux de Régulation Biologiques complets depuis un modèle de Process Hitting \normalsize(en cours)}
 \label{sec:tcs}
 
-Cette première année de thèse avait été l'occasion de compléter les liens formels entre modèle de Thomas et Process Hitting,
+La première année de thèse avait été l'occasion de compléter les liens formels entre modèle de Thomas et Process Hitting,
 en publiant notamment une méthode de traduction d'un modèle en Process Hitting vers un (ensemble de) modèle(s) de Thomas dont le comportement est strictement inclus.
 Ce travail avait été réalisé l'année précédente lors d'un stage doctoral de trois mois, du 1\textsuperscript{er} mars au 25 mai 2012, au National Institute of Informatics à Tokyo, supervisé par le professeur Katsumi Inoue.
-Il avait abouti à une implémentation sous la forme de l'outil \texttt{ph2thomas} intégré à la bibliothèque existante Pint\footnote{Disponible à \url{http://process.hitting.free.fr}} et utilisant notamment un paradigme de programmation logique appelé \emph{Answer Set Programming} (ASP).
+Il avait abouti à une implémentation sous la forme de l'outil \texttt{ph2thomas} intégré à la bibliothèque existante Pint et utilisant notamment un paradigme de programmation logique appelé \emph{Answer Set Programming} (ASP).
 Cela a permis de produire une publication en workshop~\cite{FPIMR12-LDSSB} présentée en septembre 2012, une publication en conférence internationale~\cite{FPIMR12-CMSB} présentée en octobre 2012, et donne lieu aujourd'hui à une collaboration durable entre l'équipe MeForBio et l'Inoue Laboratory.
 Ce travail fait actuellement l'objet d'une \bemph{révision en vue de sa soumission dans la revue Theoretical Computer Science}, dont la rédaction est très avancée.
 
@@ -135,7 +135,7 @@ L'un des objectifs de l'enrichissement de ce travail a été de pouvoir exploite
 Pour cela, nous proposons une sémantique étendue du modèle de Thomas, comprenant des arcs positifs ($+$), négatifs ($-$) et non-signés ($\uns$).
 Cette extension est possible du fait que le signe des arcs n'impacte pas la dynamique du modèle ; seule la paramétrisation spécifie la direction d'évolution du modèle dans chaque état.
 Cependant, de la même façon qu'un arc positif (resp.~négatif) modélise sans ambiguïté une activation (resp.~une inhibition),
-un arc non-signé modélise une régulation donc la nature est indéterminée ou plus complexe qu'une simple activation ou inhibition.
+un arc non-signé modélise une régulation dont la nature est indéterminée ou plus complexe qu'une simple activation ou inhibition.
 Étant donné ce nouvel outil, l'inférence d'un GI est possible dans tous les cas de figure, et un seuil est inféré quel que soit le signe.
 L'inférence des paramètres est alors possible malgré la présence d'arcs non-signés étant donné que ceux-ci n'influent pas sur la dynamique.
 Enfin, l'énumération des paramétrisations compatibles a aussi été revue afin d'être adaptée à cette nouvelle sémantique.
@@ -145,4 +145,5 @@ cependant, les arcs non-signés n'apportent pas de contrainte à ce niveau afin 
 L'implémentation précédemment réalisée dans le cadre de ce travail a été adaptée, rendant l'inférence conclusive dans un plus grand nombre de cas.
 Les résultats sont toujours produits en moins d'une seconde sur un ordinateur de bureau pour des modèles de 20 et 40 gènes.
 
-Cette révision est aussi l'occasion d'enrichir la rédaction de discussions et d'explications supplémentaires à propos de certains points n'ayant pas été abordés dans la première version, faut de place.
+Cette révision est aussi l'occasion d'enrichir la rédaction de discussions et d'explications supplémentaires à propos de certains points n'ayant pas été abordés dans la première version, faute de place.
+La soumission est prévue très prochainement, probablement durant le mois de juin.
